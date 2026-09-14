@@ -4,8 +4,8 @@
  * NEVER put a service_role key or secret key in this file.
  */
 window.TITANIA_CONFIG = Object.freeze({
-  supabaseUrl: 'https://dczcesmpbfurpllqpkml.supabase.co',
-  supabasePublishableKey: 'sb_publishable_PZgwOpRXW5Acawq1ZEPBJQ_6xHYf3--',
+  supabaseUrl: 'https://jvcxeocajupnghkajram.supabase.co',
+  supabasePublishableKey: 'sb_publishable_O_0ag-iBt-1fLFQ5aHXfEg_K99M_cdZ',
   appName: 'Titania Guild Management Tool'
 });
 
