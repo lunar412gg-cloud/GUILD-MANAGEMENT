@@ -4,8 +4,8 @@
  * NEVER put a service_role key or secret key in this file.
  */
 window.TITANIA_CONFIG = Object.freeze({
-  supabaseUrl: 'https://jvcxeocajupnghkajram.supabase.co',
-  supabasePublishableKey: 'sb_publishable_O_0ag-iBt-1fLFQ5aHXfEg_K99M_cdZ',
+  supabaseUrl: 'https://noltcqaaumzsqjhnexjv.supabase.co',
+  supabasePublishableKey: 'sb_publishable_n_NvJQ1t-usa4OycbSFiUA_JrZzWxpx',
   appName: 'BlackCat Guild Management Tool'
 });
 
