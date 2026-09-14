@@ -83,7 +83,7 @@ button{font:inherit}
 <body data-view="polarity">
 <div class="page">
   <header class="viewerbar">
-    <div class="mini-brand"><img class="logo" src="titania-logo.webp" alt="Titania guild logo"><div><b>TITANIA</b><span>Dark Lord Server</span></div></div>
+    <div class="mini-brand"><img class="logo" src="titania-logo.webp" alt="Titania guild logo"><div><b>TITANIA</b><span>Osiris Server</span></div></div>
     <nav class="nav">
       <a href="guild-league.html">🛡 Guild League</a>
       <a href="siege.html">🏰 Siege</a>
@@ -206,7 +206,7 @@ function render(){
     content.innerHTML=`<section class="lineup-sheet">
       <div class="sheet-head">
         <div class="sheet-brand">${esc(title)}</div>
-        <div class="sheet-meta">Dark Lord Server</div>
+        <div class="sheet-meta">Osiris Server</div>
       </div>
       <div class="unpublished-box"><div class="unpublished-icon">🔒</div><h2>Lineup Not Published Yet</h2><p>The Titania ${esc(title)} lineup is currently private.<br>Please check back later.</p></div>
     </section>`;
@@ -215,7 +215,7 @@ function render(){
   content.innerHTML=`<section class="lineup-sheet">
     <div class="sheet-head">
       <div class="sheet-brand">${esc(title)}</div>
-      <div class="sheet-meta">Dark Lord Server<br>Updated ${esc(updated)}</div>
+      <div class="sheet-meta">Osiris Server<br>Updated ${esc(updated)}</div>
     </div>
     ${VIEW==='polarity'?renderPolarity():renderGuild()}
   </section>`;

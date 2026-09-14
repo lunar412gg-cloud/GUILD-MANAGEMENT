@@ -108,7 +108,7 @@ function render(){
   content.innerHTML=`<section class="lineup-sheet">
     <div class="sheet-head">
       <div class="sheet-brand">${esc(title)}</div>
-      <div class="sheet-meta">Dark Lord Server<br>Updated ${esc(updated)}</div>
+      <div class="sheet-meta">Osiris Server<br>Updated ${esc(updated)}</div>
     </div>
     ${VIEW==='guild'?renderGuild():renderPolarity()}
   </section>`;

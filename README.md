@@ -147,6 +147,6 @@ Never commit:
 
 ## Credits
 
-Titania Guild Management Tool is based on and adapted from [RO World Planner](https://github.com/cajancharles/roworldplanner), originally created by [CharlesPlaysGG](https://github.com/cajancharles).
+BlackCat GUILD MANAGEMENT TOOL is based on and adapted from [RO World Planner](https://github.com/cajancharles/roworldplanner), originally created by [CharlesPlaysGG](https://github.com/cajancharles).
 
 Please retain the original project's MIT license and copyright notice where required by its license terms.
