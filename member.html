@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Titania · Member Profile</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="stylesheet" href="./css/member-page.css?v=20260911-aligned-1">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./config.js?v=20260911-aligned-1"></script>
+  <script src="./js/member-attendance.js?v=20260911-profile-2"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><img src="titania-logo.webp" alt="Titania"><div><b>TITANIA</b><span>Member Profile</span></div></div>
+    <div class="actions"><a class="btn" href="./index.html">← Titania</a><button class="btn" id="themeBtn" type="button">☀ Light</button></div>
+  </header>
+  <main class="wrap">
+    <div class="loading" id="loading">Loading member profile…</div>
+    <div class="error" id="error" hidden><b>Could not load member</b><span id="errorText"></span></div>
+    <div class="profile" id="profile">
+      <section class="hero">
+        <div class="identity"><span class="class-orb" id="classOrb"></span><div><h1 id="memberName"></h1><div class="subtitle" id="memberClass"></div><span class="status" id="memberStatus"></span></div></div>
+        <div class="hero-gr"><span>Current Gear Rating</span><strong id="currentGr">0</strong></div>
+      </section>
+      <section class="metrics">
+        <div class="metric"><header class="card-head"><h2><i class="fa-solid fa-arrow-trend-up mr-2" aria-hidden="true"></i>7 Day Gain</h2><p>Gear Rating growth</p></header><strong id="gain7">&#8212;</strong></div>
+        <div class="metric"><header class="card-head"><h2><i class="fa-solid fa-calendar-days mr-2" aria-hidden="true"></i>30 Day Gain</h2><p>Gear Rating growth</p></header><strong id="gain30">&#8212;</strong></div>
+        <div class="metric"><header class="card-head"><h2><i class="fa-solid fa-chart-line mr-2" aria-hidden="true"></i>Total Tracked Gain</h2><p>Since the first recorded GR</p></header><strong id="gainTotal">&#8212;</strong></div>
+        <div class="metric"><header class="card-head"><h2><i class="fa-solid fa-clock-rotate-left mr-2" aria-hidden="true"></i>Tracking Since</h2><p>First recorded Gear Rating</p></header><strong id="trackingSince">&#8212;</strong></div>
+      </section>
+      <div class="member-card-grid" id="memberCardGrid">
+        <section class="panel member-progress"><header class="card-head"><h2><i class="fa-solid fa-chart-line mr-2" aria-hidden="true"></i>Gear Rating Progress</h2><p>Recorded growth over time</p></header><div class="chart-wrap" id="chartWrap"></div></section>
+        <section class="panel member-info"><header class="card-head"><h2><i class="fa-solid fa-id-card mr-2" aria-hidden="true"></i>Member Info</h2><p>Current assignments and roster details</p></header><div class="info-list" id="memberInfo"></div></section>
+        <section class="panel member-attendance" id="memberAttendance" aria-labelledby="memberAttendanceTitle">
+          <div class="att-card-head"><header class="card-head"><h2 id="memberAttendanceTitle"><i class="fa-solid fa-chart-column mr-2" aria-hidden="true"></i>Attendance Overview</h2><p>This member across the latest 12 Guild League &amp; Siege events</p></header>
+            <div class="att-controls"><select id="memberAttendanceMode" aria-label="Member attendance chart view"><option value="actual">Actual attendance</option><option value="pre">Pre-attendance</option></select><button type="button" class="btn" id="memberAttendanceRefresh"><i class="fa-solid fa-rotate mr-2" aria-hidden="true"></i>Refresh</button></div>
+          </div><div id="memberAttendanceContent"></div>
+        </section>
+        <section class="panel class-history-panel" id="classHistoryPanel"><header class="card-head"><h2><i class="fa-solid fa-user-clock mr-2" aria-hidden="true"></i>Class History</h2><p>Recorded job and class changes</p></header><div id="classHistoryWrap" class="muted">Loading class history...</div></section>
+        <section class="panel history"><header class="card-head"><h2><i class="fa-solid fa-clock-rotate-left mr-2" aria-hidden="true"></i>GR History</h2><p>Gear Rating changes, newest first</p></header><div id="historyWrap"></div></section>
+      </div>
+    </div>
+  </main>
+<script>
+'use strict';
+
+const CLASS_COLORS={Swordman:'#e2776b',Knight:'#e2776b','Lord Knight':'#e2776b',Crusader:'#e2776b',Paladin:'#e2776b',Mage:'#579ed3',Wizard:'#579ed3','High Wizard':'#579ed3',Archer:'#e2aa50',Hunter:'#e2aa50',Sniper:'#e2aa50',Bard:'#e2aa50',Clown:'#e2aa50',Dancer:'#e2aa50',Gypsy:'#e2aa50',Acolyte:'#78bd5b',Priest:'#78bd5b','High Priest':'#78bd5b',Monk:'#78bd5b',Champion:'#78bd5b',Thief:'#a579f2',Assassin:'#a579f2','Assassin Cross':'#a579f2',Merchant:'#df9056',Blacksmith:'#df9056',Whitesmith:'#df9056',Alchemist:'#df9056',Creator:'#df9056',Gunslinger:'#b27d69',Rebel:'#b27d69','Night Watch':'#b27d69',Druid:'#32947e',Kanos:'#32947e',Alithea:'#32947e',Unknown:'#8b93b0'};
+
+let client=null;
+
+function esc(v){return String(v==null?'':v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+function num(v){const n=Number(v);return Number.isFinite(n)?n:0;}
+function fmtGr(v){return Math.round(num(v)).toLocaleString();}
+function fmtDate(v){const d=new Date(v);return Number.isNaN(d.getTime())?'—':d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});}
+function fmtDateTime(v){const d=new Date(v);return Number.isNaN(d.getTime())?'—':d.toLocaleString(undefined,{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}
+function classColor(cls){return CLASS_COLORS[cls]||CLASS_COLORS.Unknown;}
+
+function applyTheme(theme){document.documentElement.dataset.theme=theme;const btn=document.getElementById('themeBtn');if(btn)btn.textContent=theme==='light'?'☾ Dark':'☀ Light';try{localStorage.setItem('titania_member_theme',theme);}catch(_e){}}
+function setupTheme(){let theme='';try{theme=localStorage.getItem('titania_member_theme')||localStorage.getItem('titania_public_theme')||'';}catch(_e){}if(!theme)theme=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';applyTheme(theme);document.getElementById('themeBtn').addEventListener('click',()=>applyTheme(document.documentElement.dataset.theme==='light'?'dark':'light'));}
+
+function gainAt(history,current,days){if(!history.length)return null;const cutoff=Date.now()-days*86400000;let base=null;for(const row of history){const t=new Date(row.recorded_at).getTime();if(t<=cutoff)base=row;else break;}if(!base)base=history[0];return current-num(base.gear_rating);}
+function setGain(id,value){const el=document.getElementById(id);if(value==null){el.textContent='—';el.className='';return;}el.textContent=`${value>0?'+':''}${Math.round(value).toLocaleString()}`;el.className=`gain ${value>0?'pos':value<0?'neg':'zero'}`;}
+
+function renderChart(history){const wrap=document.getElementById('chartWrap');if(history.length<2){wrap.innerHTML='<div class="chart-empty">Progress tracking is active. The chart will appear after this member\'s next GR change.</div>';return;}const width=900,height=280,pad={l:58,r:20,t:18,b:38};const values=history.map(r=>num(r.gear_rating));let min=Math.min(...values),max=Math.max(...values);if(min===max){min-=1;max+=1;}const range=max-min;min-=range*.08;max+=range*.08;const times=history.map(r=>new Date(r.recorded_at).getTime());let tMin=Math.min(...times),tMax=Math.max(...times);if(tMin===tMax)tMax=tMin+1;const x=t=>pad.l+((t-tMin)/(tMax-tMin))*(width-pad.l-pad.r);const y=v=>pad.t+(1-(v-min)/(max-min))*(height-pad.t-pad.b);const pts=history.map((r,i)=>`${x(times[i]).toFixed(1)},${y(values[i]).toFixed(1)}`).join(' ');let grid='';for(let i=0;i<4;i++){const value=min+(max-min)*(i/3);const yy=y(value);grid+=`<line class="chart-grid" x1="${pad.l}" y1="${yy}" x2="${width-pad.r}" y2="${yy}"></line><text class="chart-label" x="4" y="${yy+4}">${esc(fmtGr(value))}</text>`;}const area=`${x(times[0])},${height-pad.b} ${pts} ${x(times[times.length-1])},${height-pad.b}`;const dots=history.map((r,i)=>`<circle class="chart-dot" cx="${x(times[i])}" cy="${y(values[i])}" r="4"><title>${esc(fmtDateTime(r.recorded_at))} · ${esc(fmtGr(values[i]))}</title></circle>`).join('');const labels=`<text class="chart-label" x="${pad.l}" y="${height-8}">${esc(fmtDate(history[0].recorded_at))}</text><text class="chart-label" text-anchor="end" x="${width-pad.r}" y="${height-8}">${esc(fmtDate(history[history.length-1].recorded_at))}</text>`;wrap.innerHTML=`<svg class="chart-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Gear rating progress chart">${grid}<polygon class="chart-area" points="${area}"></polygon><polyline class="chart-line" points="${pts}"></polyline>${dots}${labels}</svg>`;}
+
+function renderHistory(history){const wrap=document.getElementById('historyWrap');if(!history.length){wrap.innerHTML='<div class="muted">No GR history recorded yet.</div>';return;}const desc=[...history].reverse();wrap.innerHTML=`<table class="history-table"><thead><tr><th>Date</th><th>Gear Rating</th><th>Change</th></tr></thead><tbody>${desc.map((row,index)=>{const chronologicalIndex=history.length-1-index;const prev=chronologicalIndex>0?history[chronologicalIndex-1]:null;const delta=prev?num(row.gear_rating)-num(prev.gear_rating):null;return `<tr><td>${esc(fmtDateTime(row.recorded_at))}</td><td><b>${esc(fmtGr(row.gear_rating))}</b></td><td class="${delta==null?'delta-zero':delta>0?'delta-pos':delta<0?'delta-neg':'delta-zero'}">${delta==null?'Baseline':`${delta>0?'+':''}${Math.round(delta).toLocaleString()}`}</td></tr>`;}).join('')}</tbody></table>`;}
+
+function renderProfile(member,history){document.title=`Titania · ${member.name}`;document.getElementById('memberName').textContent=member.name||'Unknown';document.getElementById('memberClass').textContent=member.cls||'Unknown';const status=member.status==='inactive'?'inactive':'active';const statusEl=document.getElementById('memberStatus');statusEl.textContent=status;statusEl.className=`status ${status}`;document.getElementById('classOrb').style.background=classColor(member.cls);document.getElementById('classOrb').style.color=classColor(member.cls);const current=num(member.gr);document.getElementById('currentGr').textContent=fmtGr(current);setGain('gain7',gainAt(history,current,7));setGain('gain30',gainAt(history,current,30));setGain('gainTotal',history.length?current-num(history[0].gear_rating):null);document.getElementById('trackingSince').textContent=history.length?fmtDate(history[0].recorded_at):'—';document.getElementById('memberInfo').innerHTML=[['Member ID',member.id],['Class',member.cls||'Unknown'],['Status',status],['Last roster edit',member.updatedAt?fmtDateTime(member.updatedAt):'—'],['Updated by',member.updatedBy||'—'],['Inactive since',member.inactiveSince?fmtDate(member.inactiveSince):'—'],['Last returned',member.lastReturned?fmtDate(member.lastReturned):'—'],['Notes',member.notes||'—']].map(([k,v])=>`<div class="info-row"><div class="info-key">${esc(k)}</div><div class="info-value">${esc(v)}</div></div>`).join('');renderChart(history);renderHistory(history);document.getElementById('loading').hidden=true;document.getElementById('profile').style.display='block';}
+
+function fail(message){document.getElementById('loading').hidden=true;document.getElementById('errorText').textContent=message;document.getElementById('error').hidden=false;}
+
+async function boot(){setupTheme();const cfg=window.TITANIA_CONFIG||{};if(!cfg.supabaseUrl||!cfg.supabasePublishableKey){fail('Supabase configuration is missing.');return;}if(!window.supabase){fail('Supabase library did not load.');return;}const memberId=new URLSearchParams(location.search).get('id')||'';if(!memberId){fail('No member ID was provided.');return;}client=window.supabase.createClient(cfg.supabaseUrl,cfg.supabasePublishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});const userResult=await client.auth.getUser();if(userResult.error||!userResult.data||!userResult.data.user){fail('Sign in to Titania first, then open the member profile again.');return;}const profileResult=await client.from('profiles').select('approved,role').eq('id',userResult.data.user.id).single();if(profileResult.error||!profileResult.data||!profileResult.data.approved){fail('Your Titania account is not approved to view member profiles.');return;}const plannerResult=await client.from('planner_state').select('state').eq('id',1).single();if(plannerResult.error){fail(plannerResult.error.message||'Could not load planner data.');return;}const roster=Array.isArray(plannerResult.data&&plannerResult.data.state&&plannerResult.data.state.roster)?plannerResult.data.state.roster:[];const member=roster.find(m=>String(m&&m.id||'')===memberId);if(!member){fail('This member is no longer in the current roster.');return;}const historyResult=await client.from('gear_rating_history').select('gear_rating,recorded_at').eq('member_id',memberId).order('recorded_at',{ascending:true});if(historyResult.error){fail(historyResult.error.message||'Could not load GR history.');return;}renderProfile(member,historyResult.data||[]);if(window.TitaniaMemberAttendance)window.TitaniaMemberAttendance(client,memberId,userResult.data.user.id);}
+
+const startProfile=()=>boot().catch(error=>{console.warn('Member profile load failed',error);fail('Could not load the member profile. Please refresh and try again.');});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',startProfile,{once:true});else startProfile();
+</script>
+</body>
+</html>

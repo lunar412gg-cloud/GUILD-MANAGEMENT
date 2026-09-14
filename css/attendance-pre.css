@@ -1,0 +1,64 @@
+/* Pre-attendance controls for Guild League / Siege organizer party slots. */
+.pre-attendance-badge{
+  appearance:none;
+  border:2px solid #566079;
+  background:#20263a;
+  color:#c7cde0;
+  border-radius:999px;
+  width:42px;
+  min-width:42px;
+  min-height:34px;
+  padding:0;
+  line-height:1;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:0;
+  font-weight:800;
+  white-space:nowrap;
+  flex:none;
+  cursor:pointer;
+  margin-left:8px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:inset 0 0 0 1px #ffffff0a,0 0 0 2px #56607922,0 2px 8px #00000022;
+  transition:background .12s ease,border-color .12s ease,color .12s ease,box-shadow .12s ease,transform .12s ease;
+}
+.pre-attendance-badge::after{
+  font-family:'Font Awesome 6 Free';
+  font-size:17px;
+  font-weight:900;
+  line-height:1;
+}
+.pre-attendance-badge.pre-going::after{content:'\f00c';}
+.pre-attendance-badge.pre-not-going::after{content:'\f00d';}
+.pre-attendance-badge.pre-no-response::after{content:'\3f';}
+.pre-attendance-badge:hover{border-color:#8b7cf6;color:#fff;box-shadow:0 0 0 2px #8b7cf633,0 2px 10px #00000033;transform:translateY(-1px);}
+.pre-attendance-badge.pre-going{background:#12301d;border-color:#3d9d5b;color:#8fe89f;box-shadow:inset 0 0 0 1px #ffffff08,0 0 0 2px #3d9d5b20;}
+.pre-attendance-badge.pre-not-going{background:#35161d;border-color:#a94252;color:#ff9caa;box-shadow:inset 0 0 0 1px #ffffff08,0 0 0 2px #a9425220;}
+.pre-attendance-badge.pre-no-response{background:#20263a;border-color:#566079;color:#c7cde0;}
+.pre-attendance-badge.pre-saving{opacity:.6;cursor:wait;transform:none;}
+body.readonly-mode .pre-attendance-badge{cursor:default;}
+
+/* Old inline-name wrapper cleanup compatibility. */
+.slot-name-row{display:contents;}
+
+.pre-reset-all-btn{
+  border-color:#6d627f!important;
+  background:#1c1930!important;
+  color:#d7ccff!important;
+}
+.pre-reset-all-btn:hover:not(:disabled){
+  border-color:#8b7cf6!important;
+  color:#fff!important;
+  background:#272044!important;
+}
+.pre-reset-all-btn:disabled{opacity:.55;cursor:wait;}
+
+@media(max-width:720px){
+  .pre-attendance-badge{width:38px;min-width:38px;min-height:31px;margin-left:6px;}
+  .pre-attendance-badge::after{font-size:15px;}
+}
+@media(max-width:420px){
+  .pre-attendance-badge{width:36px;min-width:36px;min-height:29px;margin-left:4px;}
+  .pre-attendance-badge::after{font-size:14px;}
+}

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Titania · Guild Runs</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="stylesheet" href="./css/guild-runs.css?v=20260909-5">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="./js/config.js?v=20260907-2"></script>
+  <script src="./js/guild-runs.js?v=20260909-2" defer></script>
+</head>
+<body data-guild-runs-page="organizer">
+  <header class="topbar">
+    <div class="brand">
+      <img src="titania-logo.webp" alt="Titania">
+      <div><b>TITANIA GUILD MANAGEMENT TOOL</b><span>Guild Runs</span></div>
+    </div>
+    <div class="top-actions"><a class="btn" href="./index.html">← Back to Titania</a></div>
+  </header>
+
+  <main class="wrap">
+    <section class="page-head">
+      <div><h1>Guild Runs</h1><p>Create Time Echo or Mirage runs and view registrations.</p></div>
+    </section>
+
+    <div id="pageError" class="error" hidden></div>
+    <div id="loading" class="loading">Loading Guild Runs…</div>
+
+    <section id="createPanel" class="panel" hidden>
+      <h2>Create Run</h2>
+      <form id="createRunForm" class="create-grid">
+        <label>Title<input id="runNote" type="text" maxlength="200" placeholder="Run title"></label>
+        <label>Run Type
+          <select id="runType" required>
+            <option value="time_echo">Time Echo</option>
+            <option value="mirage">Mirage</option>
+          </select>
+        </label>
+        <label>Date<input id="runDate" type="date" required></label>
+        <label>Time<input id="runTime" type="time"></label>
+        <button class="btn primary" type="submit">Create Run</button>
+      </form>
+    </section>
+
+    <section id="runsPanel" class="panel" hidden>
+      <div class="section-head"><h2>Runs</h2><span id="runCount" class="muted"></span></div>
+      <div id="runsList" class="runs-list"></div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,35 @@
+/* Read-only attendance icons on published Guild League / Siege pages. */
+.public-pre-attendance{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:30px;
+  min-width:30px;
+  min-height:24px;
+  margin-left:7px;
+  padding:0;
+  border:1.5px solid #566079;
+  border-radius:999px;
+  background:#20263a;
+  color:#c7cde0;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:0;
+  font-weight:900;
+  line-height:1;
+  white-space:nowrap;
+  flex:none;
+}
+.public-pre-attendance::after{font-family:'Font Awesome 6 Free';font-size:14px;font-weight:900;line-height:1;}
+.public-pre-attendance.pre-going::after{content:'\f00c';}
+.public-pre-attendance.pre-not-going::after{content:'\f00d';}
+.public-pre-attendance.pre-no-response::after{content:'\3f';}
+.public-pre-attendance.pre-going{background:#12301d;border-color:#3d9d5b;color:#8fe89f;}
+.public-pre-attendance.pre-not-going{background:#35161d;border-color:#a94252;color:#ff9caa;}
+.public-pre-attendance.pre-no-response{background:#20263a;border-color:#566079;color:#c7cde0;}
+@media(max-width:720px){
+  .public-pre-attendance{width:28px;min-width:28px;min-height:23px;margin-left:5px;font-size:0;}
+}
+@media(max-width:720px){.public-pre-attendance::after{font-size:13px;}}
+@media print{
+  .public-pre-attendance{box-shadow:none!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}

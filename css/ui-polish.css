@@ -1,0 +1,100 @@
+/* Small UI corrections requested for Members / GL / Siege. No font changes. */
+
+/* Membership History: compact event cards instead of one sparse full-width table. */
+.history-list{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px!important;
+  padding:10px!important;
+}
+.history-row,
+.history-row:last-child{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  grid-template-areas:
+    "name action"
+    "reason date"!important;
+  gap:5px 12px!important;
+  align-items:center!important;
+  padding:11px 12px!important;
+  border:1px solid var(--line-soft)!important;
+  border-radius:9px!important;
+  background:var(--panel-2)!important;
+  min-width:0!important;
+}
+.history-name{
+  grid-area:name;
+  min-width:0;
+}
+.history-action{
+  grid-area:action;
+  justify-self:end;
+  white-space:nowrap;
+}
+.history-date{
+  grid-area:date!important;
+  grid-column:auto!important;
+  justify-self:end;
+  white-space:nowrap;
+  color:var(--muted);
+}
+.history-reason{
+  grid-area:reason!important;
+  grid-column:auto!important;
+  min-width:0;
+  color:var(--muted);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* The move/grip icon is a labelled icon: use the requested mr-2 spacing. */
+.team-drag-handle{
+  margin-right:.5rem!important;
+}
+
+/* Star comes after the Party label: space the star itself with ml-2. */
+body .team-name.party-star-name{
+  gap:0!important;
+}
+body .party-star-toggle,
+body .party-star-public{
+  margin-left:.5rem!important;
+}
+
+/* Guild League: no one-sided accent. Use a full purple border around every party card. */
+body[data-event="guild_league"] .body-wrap[data-event="guild_league"] .team-card.main-bf,
+body[data-event="guild_league"] .body-wrap[data-event="guild_league"] .team-card.sub-bf{
+  box-shadow:none!important;
+  border:1px solid var(--violet)!important;
+}
+
+/* Siege: no one-sided accent. Use a full red border around normal party cards. */
+body[data-event="siege"] .body-wrap[data-event="siege"] .team-card.main-bf,
+body[data-event="siege"] .body-wrap[data-event="siege"] .team-card.sub-bf{
+  box-shadow:none!important;
+  border:1px solid #ef5a6f!important;
+}
+
+/* Star-selected Siege parties override the red rule with a full gold border/glow. */
+body[data-event="siege"] .body-wrap[data-event="siege"] .team-card.main-bf.party-starred,
+body[data-event="siege"] .body-wrap[data-event="siege"] .team-card.sub-bf.party-starred{
+  border:1px solid #f0b429!important;
+  box-shadow:0 0 0 1px #f0b42944,0 0 18px #f0b42912!important;
+}
+
+@media(max-width:900px){
+  .history-list{grid-template-columns:minmax(0,1fr)!important;}
+}
+
+@media(max-width:520px){
+  .history-row,
+  .history-row:last-child{
+    grid-template-columns:minmax(0,1fr) auto!important;
+    grid-template-areas:
+      "name action"
+      "reason reason"
+      "date date"!important;
+  }
+  .history-date{justify-self:start;}
+}

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Titania · Guild Runs</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/guild-runs.css?v=20260909-5">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/config.js?v=20260907-1"></script>
+  <script src="./js/titania-runs-public.js?v=20260912-1" defer></script>
+</head>
+<body data-guild-runs-page="public">
+  <header class="topbar">
+    <div class="brand">
+      <img src="titania-logo.webp" alt="Titania">
+      <div><b>TITANIA GUILD RUNS</b><span>Register for an available carry run</span></div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="page-head public-page-head">
+      <div><h1>Available Guild Runs</h1><p>Choose a run below and register your character.</p></div>
+    </section>
+
+    <div id="pageError" class="error" hidden></div>
+    <div id="loading" class="loading">Loading available runs…</div>
+
+    <section class="panel">
+      <div id="publicRunsList" class="runs-list"></div>
+    </section>
+  </main>
+</body>
+</html>

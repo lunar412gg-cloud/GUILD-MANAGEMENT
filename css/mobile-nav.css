@@ -1,0 +1,258 @@
+/* Titania responsive top navigation + mobile planner layout
+   Small screens use icon-only planner tabs and a true single-column planner. */
+
+@media (max-width: 720px) {
+  html,
+  body,
+  .app,
+  .app-inner,
+  .body-wrap,
+  .main {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .topbar {
+    width: 100%;
+    padding: 10px;
+    gap: 10px;
+    justify-content: center;
+    overflow: visible;
+  }
+
+  .brand {
+    width: 100%;
+    min-width: 0;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .brand-logo {
+    width: 44px;
+    height: 38px;
+  }
+
+  .brand-text {
+    min-width: 0;
+  }
+
+  .brand-text h1 {
+    font-size: 16px !important;
+    letter-spacing: 1.2px;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.15;
+  }
+
+  .brand-text p {
+    font-size: 11px !important;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+
+  .event-tabs {
+    width: 100%;
+    max-width: 430px;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 4px;
+    padding: 4px;
+    margin: 0 auto;
+  }
+
+  .event-tab {
+    width: 100%;
+    min-width: 0;
+    height: 44px;
+    padding: 0 !important;
+    gap: 0;
+    justify-content: center;
+    overflow: hidden;
+    font-size: 0 !important;
+  }
+
+  .event-tab::before { display: none; }
+  .event-tab i { font-size: 21px; line-height: 1; }
+
+  .stats,
+  .actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Phone layout: member pool first, planner below it. */
+  .body-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-width: 0;
+    overflow: visible;
+  }
+
+  .sidebar {
+    position: relative;
+    top: 0;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    max-height: 360px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .sidebar-head,
+  .member-list {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .main {
+    flex: none;
+    min-width: 0;
+    padding: 16px 10px 60px;
+    overflow: visible;
+  }
+
+  .hint-bar,
+  .event-action-row,
+  #teamsWrap,
+  .main-raids,
+  .main-raid-block,
+  .pz-dungeon-group {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Every party becomes a full-width card on phones. */
+  .team-grid,
+  .main-raid-grid,
+  .main-raid-grid.five,
+  .pz-star-raid-grid,
+  .pz-normal-raid-grid,
+  .pz-dungeon-team-grid,
+  .pz-dungeon-team-grid.cols-4,
+  .pz-dungeon-team-grid.cols-5 {
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .team-card {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* Raid headers also need to fit the phone width. */
+  .main-raid-head,
+  .pz-dungeon-group-head {
+    width: 100%;
+    min-width: 0;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .main-raid-title,
+  .pz-dungeon-group-title {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .main-raid-line,
+  .pz-dungeon-group-line {
+    display: none;
+  }
+
+  .raid-leader-control,
+  .pz-dungeon-group-head .raid-leader-control {
+    width: 100%;
+    min-width: 0;
+    margin-left: 0;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .raid-leader-drop {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .section-head {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .section-title {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .event-action-row {
+    align-items: stretch;
+  }
+
+  .event-action-row .btn {
+    flex: 1 1 calc(50% - 8px);
+    min-width: 0;
+  }
+
+  .event-last-updated {
+    width: 100%;
+    margin-left: 0;
+    justify-content: flex-end;
+    white-space: normal;
+  }
+
+  /* Keep party member details readable instead of squeezing them. */
+  .slot {
+    min-width: 0;
+  }
+
+  .slot-info,
+  .slot-name,
+  .slot-class {
+    min-width: 0;
+  }
+
+  .slot-gr {
+    white-space: nowrap;
+  }
+}
+
+/* Very small phones: keep the icons comfortably tappable. */
+@media (max-width: 420px) {
+  .topbar {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .event-tabs {
+    gap: 3px;
+  }
+
+  .event-tab {
+    height: 42px;
+  }
+
+  .event-tab i {
+    font-size: 20px;
+  }
+
+  .main {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .event-action-row .btn {
+    flex-basis: 100%;
+  }
+}

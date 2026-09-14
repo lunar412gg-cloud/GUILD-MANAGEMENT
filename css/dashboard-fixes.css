@@ -1,0 +1,280 @@
+/* Dashboard readability fixes */
+
+/* Keep class/job names on one line in Top 5 / Lowest 5 Gear Rating lists. */
+.dash-gr-rank-grid .dash-bar-avg {
+  width: 145px !important;
+  min-width: 145px !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  line-height: 1.2;
+}
+
+/* Keep the Gear Rating value aligned at the far right. */
+.dash-gr-rank-grid .dash-bar-count {
+  flex: 0 0 80px;
+  white-space: nowrap;
+}
+
+/* Desktop: keep the same two-row top layout on every planner page. */
+@media (min-width: 1181px) {
+  .topbar {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "brand tabs"
+      "stats actions";
+    align-items: center;
+  }
+
+  .topbar .brand {
+    grid-area: brand;
+  }
+
+  .topbar .event-tabs {
+    grid-area: tabs;
+    justify-self: end;
+  }
+
+  .topbar .stats {
+    grid-area: stats;
+    justify-content: flex-start;
+  }
+
+  .topbar .actions {
+    grid-area: actions;
+    justify-content: flex-end;
+  }
+}
+
+/* iPad / tablet sizes: use the full viewport instead of squeezing desktop layout. */
+@media (min-width: 721px) and (max-width: 1180px) {
+  html,
+  body,
+  .app,
+  .app-inner,
+  .body-wrap,
+  .main {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .topbar {
+    position: relative;
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    padding: 12px 14px;
+    gap: 10px;
+    overflow: visible;
+  }
+
+  .topbar .brand {
+    order: 1;
+    width: 100%;
+    min-width: 0 !important;
+    margin: 0 !important;
+    justify-content: center;
+  }
+
+  .topbar .brand-text {
+    min-width: 0;
+  }
+
+  .topbar .brand-text h1 {
+    white-space: normal;
+    text-align: center;
+  }
+
+  .topbar .brand-text p {
+    text-align: center;
+  }
+
+  .topbar .event-tabs {
+    order: 2;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .topbar .event-tab {
+    min-width: 0;
+    width: 100%;
+    justify-content: center;
+    padding: 9px 8px;
+    overflow: hidden;
+  }
+
+  .topbar .stats {
+    order: 3;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+    width: 100%;
+    max-width: 100%;
+    gap: 8px;
+  }
+
+  .topbar .stat-chip {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .topbar .actions {
+    order: 4;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 !important;
+    justify-content: center !important;
+  }
+
+  .body-wrap {
+    flex-direction: column !important;
+    align-items: stretch;
+    min-width: 0;
+  }
+
+  .sidebar {
+    position: relative !important;
+    top: 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: 360px;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .main {
+    flex: none;
+    min-width: 0;
+    padding: 18px 16px 60px;
+    overflow: visible;
+  }
+
+  .hint-bar,
+  .event-action-row,
+  #teamsWrap,
+  .main-raids,
+  .main-raid-block,
+  .pz-dungeon-group {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .main-raid-grid,
+  .main-raid-grid.five,
+  .pz-star-raid-grid,
+  .pz-normal-raid-grid,
+  .pz-dungeon-team-grid,
+  .pz-dungeon-team-grid.cols-4,
+  .pz-dungeon-team-grid.cols-5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .event-action-row,
+  .main-raid-head,
+  .pz-dungeon-group-head,
+  .section-head {
+    flex-wrap: wrap;
+  }
+
+  .event-last-updated {
+    max-width: 100%;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 900px) {
+  .dash-gr-rank-grid .dash-bar-avg {
+    width: 135px !important;
+    min-width: 135px !important;
+  }
+}
+
+/* Compact dashboard panels; no effect on planner or attendance editing pages. */
+body[data-event="dashboard"] .main{padding-bottom:32px;}
+body[data-event="dashboard"] #teamsWrap > .section-head{margin-top:18px;margin-bottom:10px;}
+body[data-event="dashboard"] #teamsWrap > .section-head:first-child{margin-top:0;}
+.dash-gr-rank-col .section-head{margin-bottom:10px;}
+/* Profile links replace the name span and lose its inline flex:1 style. */
+.dash-gr-rank-grid .dash-bar-name{flex:1;min-width:0;width:auto;}
+.dash-gr-rank-grid .dash-bar-count{margin-left:auto;}
+.dash-gr-rank-col .section-title{white-space:normal;font-size:clamp(14px,1.15vw,18px)!important;}
+
+/* CSS-only stacked attendance chart, using the existing dashboard palette. */
+.dash-attendance{margin-top:18px;padding:16px;min-width:0;}
+.dash-att-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+.dash-att-head h2,.dash-card-head h2{font-size:18px;line-height:1.35;margin:0;color:var(--text);}
+.dash-att-head p,.dash-card-head p{margin:4px 0 0;color:var(--muted);font-size:12px;}
+.dash-att-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.dash-att-controls select{width:auto;max-width:100%;font:inherit;font-size:12px;}
+.dash-att-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:14px 0;font-size:12px;color:var(--muted);}
+.dash-att-legend > span{display:inline-flex;align-items:center;gap:6px;}
+.dash-att-legend b{color:var(--text);font-variant-numeric:tabular-nums;}
+.dash-att-dot{width:9px;height:9px;border-radius:2px;display:inline-block;}
+.dash-att-scroll{max-width:100%;overflow-x:auto;padding-bottom:4px;}
+.dash-att-chart{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(76px,1fr);gap:12px;padding:0 4px;}
+.dash-att-column{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:12px;min-width:0;}
+.dash-att-column > strong{font:600 15px 'IBM Plex Mono',monospace;color:var(--text);}
+.dash-att-column > b{font-size:12px;white-space:nowrap;}
+.dash-att-column > span,.dash-att-column > small{color:var(--muted);font-size:11px;white-space:nowrap;}
+.dash-att-column .dash-att-state{font-size:10px;}
+.dash-att-bar{height:150px;width:48px;border:1px solid var(--line-soft);border-radius:5px;overflow:hidden;display:flex;flex-direction:column-reverse;background:var(--panel-2);flex:none;}
+.dash-att-bar > span{display:block;flex:none;width:100%;}
+.dash-att-bar:focus-visible,.dash-att-scroll:focus-visible{outline:2px solid var(--violet);outline-offset:3px;}
+.dash-attendance .present,.dash-attendance .going{background:var(--teal);}
+.dash-attendance .absent,.dash-attendance .not_going{background:var(--red);}
+.dash-attendance .excused{background:var(--amber);}
+.dash-attendance .not_checked,.dash-attendance .no_response{background:var(--muted-2);}
+.dash-att-note{font-size:11px;line-height:1.6;color:var(--muted);margin:12px 0 0;}
+.dash-att-message{font-size:13px;color:var(--muted);margin:16px 0 4px;}
+@media(max-width:600px){
+  .dash-gr-rank-grid .dash-bar-avg{display:none;}
+  .dash-gr-rank-grid .dash-bar-count{flex-basis:72px;}
+  .dash-gr-spread-panel .dash-bar-name{width:115px;font-size:12px!important;}
+  .dash-gr-spread-panel .dash-bar-count,.dash-gr-spread-panel .dash-bar-pct{width:32px;}
+  .dash-attendance{padding:12px;}
+}
+
+/* All dashboard cards share the Attendance Overview's in-card header. */
+body[data-event="dashboard"] .dash-headed-card{padding:16px;}
+.dash-card-head{width:100%;min-width:0;flex:none;margin-bottom:14px;text-align:left;}
+.dash-card-head h2{font-family:inherit;font-weight:700;letter-spacing:0;text-transform:none;overflow-wrap:anywhere;}
+.dash-card-head p{line-height:1.4;}
+.dash-card > .dash-card-head{margin-bottom:8px;}
+.dash-card > .dash-card-head h2{font-size:16px;}
+.dash-card > .dash-card-head p{font-size:11px;}
+.dash-class-pie-panel.dash-headed-card{justify-content:flex-start;}
+@media(max-width:600px){body[data-event="dashboard"] .dash-headed-card{padding:12px;}}
+
+/* Aligned rows: no staggered final card or unused strip before Attendance. */
+.dash-class-analytics-grid,.dash-gr-analytics-grid,.dash-gr-rank-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  align-items:stretch;gap:16px;margin:16px 0 0;
+}
+.dash-class-bars,.dash-gr-spread-panel,.dash-gr-rank-col > .dash-panel{
+  display:flex;flex-direction:column;min-width:0;
+}
+.dash-class-bars > .dash-bar-row,.dash-gr-spread-panel > .dash-bar-row,
+.dash-gr-rank-col > .dash-panel > .dash-bar-row{flex:1;}
+.dash-gr-rank-col{display:flex;flex-direction:column;}
+.dash-gr-rank-col > .dash-panel{flex:1;}
+.dash-class-pie-wrap{flex:1;width:100%;min-height:240px;aspect-ratio:auto;}
+.dash-class-pie{position:absolute;inset:0;}
+.dash-attendance{margin-top:16px;margin-bottom:0;}
+@media(max-width:1050px){
+  .dash-class-analytics-grid,.dash-gr-analytics-grid,.dash-gr-rank-grid{grid-template-columns:minmax(0,1fr);}
+  .dash-class-pie-panel{min-height:0;}
+}

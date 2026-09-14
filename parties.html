@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Titania · Party Management</title>
+  <link rel="icon" href="favicon-32.png" sizes="32x32">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+  <style>
+    :root{--bg:#0c0f1a;--panel:#141a2b;--panel-2:#1b2237;--line:#2a3350;--line-soft:#202944;--text:#e9ecf7;--muted:#8b93b0;--muted-2:#5f6889;--violet:#8b7cf6;--teal:#3fd6c4;--amber:#f0b429;--red:#ef5a6f;--green:#4fd67a}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',Arial,sans-serif;min-height:100vh}button,select{font:inherit}.mr-2{margin-right:.5rem}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px;border-bottom:1px solid var(--line-soft);background:#0c0f1ae8;position:sticky;top:0;z-index:10;backdrop-filter:blur(10px)}
+    .brand{display:flex;align-items:center;gap:10px}.brand img{width:42px;height:38px;object-fit:contain}.brand h1{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1.7px;margin:0}.brand p{margin:1px 0 0;color:var(--muted);font-size:11px}
+    .btn{border:1px solid var(--line-soft);background:var(--panel);color:var(--text);border-radius:8px;padding:9px 12px;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;justify-content:center;text-decoration:none}.btn:hover{border-color:var(--violet)}.btn:disabled{opacity:.5;cursor:not-allowed}.btn.primary{background:linear-gradient(135deg,#8b7cf6,#6f5ee0);border:none;color:#fff}
+    main{max-width:1500px;margin:0 auto;padding:22px 20px 60px}.page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px}.page-head h2{margin:0;font-size:22px}.page-head p{margin:4px 0 0;color:var(--muted);font-size:13px}.summary{font:600 12px 'IBM Plex Mono',monospace;color:var(--muted);white-space:nowrap}
+    .notice{background:#3fd6c40d;border:1px solid #3fd6c43a;color:#bfeee8;border-radius:9px;padding:10px 12px;margin-bottom:16px;font-size:12px}
+    .party-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.party-card{background:var(--panel);border:1px solid var(--line-soft);border-radius:12px;padding:13px}.party-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.party-head h3{margin:0;font-size:15px}.party-count{font:600 11px 'IBM Plex Mono',monospace;color:var(--muted)}
+    .party-slots{display:grid;gap:7px}.party-slot{display:grid;grid-template-columns:24px minmax(0,1fr);align-items:center;gap:8px;min-width:0}.party-slot>span{font:600 11px 'IBM Plex Mono',monospace;color:var(--muted-2);text-align:center}.party-actions{display:flex;justify-content:flex-end;margin-top:10px}.saved{color:var(--green)!important;border-color:#4fd67a55!important}.state{text-align:center;color:var(--muted);padding:40px 20px;background:var(--panel);border:1px dashed var(--line);border-radius:12px}.state.error{color:#ff9caa}
+    .select2-container{width:100%!important;min-width:0}.select2-container--default .select2-selection--single{height:38px;background:#0f1424;border:1px solid var(--line);border-radius:7px}.select2-container--default .select2-selection--single .select2-selection__rendered{color:var(--text);line-height:36px;padding-left:9px;padding-right:30px}.select2-container--default .select2-selection--single .select2-selection__arrow{height:36px}.select2-container--default .select2-selection--single .select2-selection__placeholder{color:var(--muted)}
+    .select2-dropdown{background:#0d1322;border-color:var(--line);z-index:9999}.select2-results__option{color:var(--text);padding:7px 9px}.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable{background:#5f52c6}.select2-search--dropdown{padding:7px}.select2-search__field{background:#111827!important;color:var(--text)!important;border:1px solid var(--line)!important;border-radius:6px;padding:7px!important;outline:none}.select2-search__field:focus{border-color:var(--violet)!important}.select2-member{display:flex;align-items:center;gap:8px;min-width:0}.select2-member img{width:24px;height:24px;object-fit:contain;flex:none}.select2-member-main{display:flex;align-items:baseline;gap:7px;min-width:0}.select2-member-name{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.select2-member-class{color:var(--muted);font-size:11px;white-space:nowrap}.party-slot.duplicate .select2-selection--single{border-color:var(--red)!important;box-shadow:0 0 0 1px #ef5a6f44!important}.select2-container--default.select2-container--disabled .select2-selection--single{opacity:.6;background:#0f1424}
+    @media(max-width:1100px){.party-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:680px){.topbar,.page-head{align-items:flex-start;flex-direction:column}.topbar .btn{width:100%}.party-grid{grid-template-columns:1fr}main{padding:16px 10px 40px}.page-head{margin-bottom:12px}}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="./js/config.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><img src="favicon-192.png" alt=""><div><h1>Titania Guild Management Tool</h1><p>Party Management</p></div></div>
+    <a class="btn" href="./index.html"><i class="fa-solid fa-arrow-left mr-2" aria-hidden="true"></i>Back to Titania</a>
+  </header>
+  <main>
+    <div class="page-head"><div><h2><i class="fa-solid fa-people-group mr-2" aria-hidden="true"></i>Party Management</h2><p>30 reusable reference parties · 5 members each</p></div><div class="summary" id="summary">Loading…</div></div>
+    <div class="notice">Search members by name or class. These are reusable party templates; drag a complete party from <b>Party Pool</b> onto Guild League or Siege to place all 5 members.</div>
+    <div id="state" class="state">Loading parties…</div>
+    <div id="partyGrid" class="party-grid" hidden></div>
+  </main>
+  <script src="./js/party-manager.js?v=20260911-2"></script>
+</body>
+</html>

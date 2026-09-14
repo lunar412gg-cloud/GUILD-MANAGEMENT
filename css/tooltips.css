@@ -1,0 +1,77 @@
+.titania-tooltip{
+  position:fixed;
+  z-index:2147483647;
+  display:block;
+  margin:0;
+  font-family:Arial,sans-serif;
+  font-style:normal;
+  font-weight:400;
+  line-height:1.5;
+  text-align:left;
+  text-align:start;
+  text-decoration:none;
+  text-shadow:none;
+  text-transform:none;
+  letter-spacing:normal;
+  word-break:normal;
+  word-spacing:normal;
+  white-space:normal;
+  line-break:auto;
+  font-size:.875rem;
+  word-wrap:break-word;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .15s linear;
+}
+
+.titania-tooltip.show{opacity:.9}
+
+.titania-tooltip-inner{
+  max-width:200px;
+  padding:.25rem .5rem;
+  color:#fff;
+  text-align:center;
+  background-color:#000;
+  border-radius:.25rem;
+}
+
+.titania-tooltip-arrow{
+  position:absolute;
+  width:0;
+  height:0;
+  border-color:transparent;
+  border-style:solid;
+}
+
+.titania-tooltip[data-placement="top"] .titania-tooltip-arrow{
+  left:50%;
+  bottom:-5px;
+  margin-left:-5px;
+  border-width:5px 5px 0;
+  border-top-color:#000;
+}
+
+.titania-tooltip[data-placement="bottom"] .titania-tooltip-arrow{
+  left:50%;
+  top:-5px;
+  margin-left:-5px;
+  border-width:0 5px 5px;
+  border-bottom-color:#000;
+}
+
+/* Keep the dashboard pie tooltip visually consistent with the shared style. */
+.dash-class-pie-tooltip{
+  background:#000!important;
+  color:#fff!important;
+  border:0!important;
+  border-radius:.25rem!important;
+  box-shadow:none!important;
+  padding:.25rem .5rem!important;
+  font:400 .875rem/1.5 Arial,sans-serif!important;
+}
+
+.dash-class-pie-tooltip b,
+.dash-class-pie-tooltip span{
+  color:#fff!important;
+  font-family:Arial,sans-serif!important;
+}

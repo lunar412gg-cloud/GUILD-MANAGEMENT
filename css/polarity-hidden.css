@@ -1,0 +1,50 @@
+/*
+ * POLARITY ZONE TEMPORARILY HIDDEN
+ * Loaded only when window.TITANIA_FEATURES.polarityZone === false.
+ * To restore Polarity Zone, change the flag to true in config.js.
+ */
+
+/* Management tool tab */
+.event-tab[data-event="polarity_zone"] {
+  display: none !important;
+}
+
+/* Public-page navigation */
+a[href="polarity-zone.html"],
+a[href="./polarity-zone.html"] {
+  display: none !important;
+}
+
+/* If someone opens the old public Polarity URL directly, hide the lineup. */
+body[data-view="polarity"] .page {
+  display: none !important;
+}
+
+body[data-view="polarity"] {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+body[data-view="polarity"]::before {
+  content: "Polarity Zone is currently hidden.";
+  display: block;
+  width: min(520px, 100%);
+  padding: 28px 24px;
+  border: 1px solid var(--line, #2a3350);
+  border-radius: 14px;
+  background: var(--panel, #141a2b);
+  color: var(--muted, #8b93b0);
+  font: 600 16px/1.5 'IBM Plex Sans', Arial, sans-serif;
+  text-align: center;
+  box-shadow: 0 18px 50px #00000055;
+}
+
+/* Dashboard, Members, Guild League, Siege, Attendance, Runs remain visible. */
+@media (max-width: 720px) {
+  .event-tabs {
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  }
+}

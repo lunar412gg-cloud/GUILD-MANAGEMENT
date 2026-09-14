@@ -1,0 +1,27 @@
+:root{
+  --bg:#0c0f1a;
+  --panel:#141a2b;
+  --panel2:#1b2237;
+  --line:#2a3350;
+  --line-soft:#202944;
+  --text:#e9ecf7;
+  --muted:#8b93b0;
+  --violet:#8b7cf6;
+  --teal:#3fd6c4;
+  --green:#4fd67a;
+  --red:#ef5a6f;
+  --amber:#f0b429;
+  --shadow:0 18px 45px rgba(0,0,0,.28);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:radial-gradient(900px 450px at 15% -10%,#221b4a44,transparent 60%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
+.topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 18px;border-bottom:1px solid var(--line-soft);background:rgba(12,15,26,.95);backdrop-filter:blur(12px)}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}.brand img{width:44px;height:40px;object-fit:contain}.brand b{display:block;letter-spacing:1.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.brand span{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.btn{appearance:none;border:1px solid var(--line);background:var(--panel);color:var(--text);padding:9px 12px;border-radius:9px;text-decoration:none;cursor:pointer;font-weight:700;font-size:13px}.btn:hover{border-color:var(--violet)}.btn:disabled{opacity:.55;cursor:not-allowed}
+.wrap{width:min(1280px,calc(100% - 28px));margin:24px auto 50px}.page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:14px}.page-head h1{margin:0;font-size:27px}.page-head p{margin:6px 0 0;color:var(--muted);font-size:14px}.user-count{color:var(--muted);font-size:13px;font-weight:700;white-space:nowrap}
+.notice{margin-bottom:14px;padding:12px 14px;border:1px solid rgba(63,214,196,.32);background:rgba(63,214,196,.08);border-radius:11px;color:#c9f4ee;font-size:13px}.panel{background:var(--panel);border:1px solid var(--line-soft);border-radius:14px;padding:12px;box-shadow:var(--shadow)}.loading,.error{padding:26px;text-align:center;color:var(--muted)}.error{color:#ff9aaa}.users-list{display:grid;gap:8px}
+.user-row{display:grid;grid-template-columns:minmax(220px,1fr) minmax(150px,210px) 130px minmax(180px,200px);gap:12px;align-items:center;padding:12px;border:1px solid var(--line-soft);border-radius:11px;background:var(--panel2)}.user-row.self{border-color:rgba(139,124,246,.35)}.user-ident{min-width:0}.user-name{font-weight:800;color:#aeb5ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.user-email{margin-top:4px;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.you{color:var(--violet);font-weight:800}
+.role-select{width:100%;border:1px solid var(--line);background:#0d1322;color:var(--text);border-radius:8px;padding:9px 10px;font-weight:700}.approved{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:13px;white-space:nowrap}.approved input{width:16px;height:16px;accent-color:#4f9cff}.user-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.save-btn,.delete-btn{width:100%;border:1px solid var(--line);background:#11182a;color:var(--text);border-radius:8px;padding:9px 10px;font-weight:800;cursor:pointer;white-space:nowrap}.save-btn:hover{border-color:var(--violet)}.save-btn.saved{border-color:rgba(79,214,122,.5);color:var(--green)}.delete-btn{border-color:rgba(239,90,111,.35);color:#ff9aaa;background:rgba(239,90,111,.07)}.delete-btn:hover{border-color:var(--red);background:rgba(239,90,111,.13)}.save-btn:disabled,.delete-btn:disabled{opacity:.5;cursor:not-allowed}.pending-badge{display:inline-flex;margin-left:7px;padding:2px 6px;border:1px solid rgba(240,180,41,.4);border-radius:999px;color:var(--amber);font-size:10px;text-transform:uppercase;letter-spacing:.5px}.mr-2{margin-right:.5rem}
+@media(max-width:980px){.user-row{grid-template-columns:1fr 1fr}.user-actions{grid-column:1/-1}.brand b{font-size:13px}}
+@media(max-width:560px){.topbar{align-items:flex-start;flex-direction:column}.top-actions{width:100%;justify-content:stretch}.top-actions .btn{flex:1;text-align:center}.wrap{width:calc(100% - 14px);margin-top:12px}.page-head{align-items:flex-start;flex-direction:column}.user-row{grid-template-columns:1fr}.user-actions{grid-column:auto}.save-btn,.delete-btn{width:100%}}

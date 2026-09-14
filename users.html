@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Titania · User Management</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="./css/user-management.css?v=20260911-delete-1">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="./js/config.js?v=20260911-att-delete-1"></script>
+  <script src="./js/user-management.js?v=20260911-swal-delete-1" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="titania-logo.webp" alt="Titania">
+      <div>
+        <b>TITANIA GUILD MANAGEMENT TOOL</b>
+        <span>User Management</span>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="btn" id="refreshBtn" type="button"><i class="fa-solid fa-rotate mr-2" aria-hidden="true"></i>Refresh</button>
+      <a class="btn" href="./index.html"><i class="fa-solid fa-arrow-left mr-2" aria-hidden="true"></i>Back to Titania</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="page-head">
+      <div>
+        <h1>User Management</h1>
+        <p>Approve registrations and manage Titania access roles.</p>
+      </div>
+      <div class="user-count" id="userCount">— users</div>
+    </section>
+
+    <div class="notice">
+      <b>Admin</b>: full access · <b>Party Organizer</b>: roster, lineups, Star Dungeon and attendance · <b>Attendance Auditor</b>: attendance and pre-attendance only · <b>Viewer</b>: read-only · <b>Pending</b>: awaiting approval. Admins can permanently delete unnecessary accounts; your own account is protected.
+    </div>
+
+    <section class="panel">
+      <div class="loading" id="loading">Loading users…</div>
+      <div class="error" id="error" hidden></div>
+      <div class="users-list" id="usersList" hidden></div>
+    </section>
+  </main>
+</body>
+</html>

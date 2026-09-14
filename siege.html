@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Titania · Siege</title>
+  <link rel="icon" href="favicon.ico?v=20260811-2" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=20260811-2">
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png?v=20260811-2">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20260811-2">
+
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#090d17;--sheet:#101522;--panel:#151b2a;--panel2:#1a2234;--line:#2a3350;--lineSoft:#202944;
+  --text:#edf0f8;--muted:#8992ad;--muted2:#606a87;--violet:#8b7cf6;--teal:#3fd6c4;
+  --amber:#f0b429;--green:#4fd67a;--red:#ef5a6f;--dungeon:#ff8f5e;--bar:#0c101bef;
+  --leaderSlot:#1a180f;--shadow:0 18px 50px rgba(0,0,0,.28);
+}
+html[data-theme="light"]{
+  --bg:#eef1f7;--sheet:#ffffff;--panel:#f8f9fd;--panel2:#f2f4fa;--line:#d8dce9;--lineSoft:#e5e8f1;
+  --text:#171a29;--muted:#626a82;--muted2:#8a91a5;--violet:#6757d9;--teal:#168f83;
+  --amber:#9a6800;--green:#168c45;--red:#c93f58;--dungeon:#d86032;--bar:#ffffffef;
+  --leaderSlot:#fff9e8;--shadow:0 16px 40px rgba(38,45,72,.10);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--text);font-family:'Lexend','IBM Plex Sans',Arial,sans-serif;font-size:18px;transition:background .2s,color .2s}
+.page{min-height:100vh}
+button{font:inherit}
+.viewerbar{position:sticky;top:0;z-index:30;background:var(--bar);backdrop-filter:blur(12px);border-bottom:1px solid var(--lineSoft);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.mini-brand{display:flex;align-items:center;gap:10px}
+.logo{width:46px;height:42px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(222,128,193,.25))}
+.mini-brand b{display:block;font-family:'Cinzel',serif;font-size:19px;letter-spacing:1.7px}
+.mini-brand span{display:block;font-size:12px;color:var(--muted);letter-spacing:.9px;margin-top:1px}
+.nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.nav a,.tool-btn{border:1px solid var(--lineSoft);background:var(--panel);color:var(--muted);padding:10px 14px;border-radius:10px;text-decoration:none;font-size:14.5px;font-weight:700;cursor:pointer}
+.nav a:hover,.tool-btn:hover{border-color:var(--violet);color:var(--text)}
+.nav a.active{background:#a93446;border-color:#d64b61;color:#fff;box-shadow:0 0 0 1px #ff6b7a22 inset}
+.theme-icon{width:16px;display:inline-block;text-align:center}
+.content{width:min(1760px,calc(100% - 22px));margin:12px auto 30px}
+.lineup-sheet{background:var(--sheet);border:1px solid var(--lineSoft);border-radius:14px;padding:24px 26px 30px;box-shadow:var(--shadow)}
+.sheet-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding-bottom:16px;margin-bottom:18px;border-bottom:2px solid var(--text)}
+.sheet-brand{font-family:'Cinzel',serif;font-weight:800;font-size:42px;letter-spacing:1.3px;text-transform:uppercase}
+.sheet-meta{text-align:right;font-size:13px;color:var(--muted);line-height:1.65;font-family:'IBM Plex Mono',monospace}
+.section-head{display:flex;align-items:center;gap:10px;margin:22px 0 11px}
+.section-title{font-family:'Cinzel',serif;font-weight:700;font-size:23px;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+.section-title.main{color:#a99df8}.section-title.sub{color:var(--teal)}.section-title.star{color:var(--amber)}
+.section-line{height:1px;background:linear-gradient(90deg,var(--line),transparent);flex:1}
+.raid-block{margin-bottom:16px;break-inside:avoid}.raid-block.dungeon-block{margin-top:20px}
+.raid-head{display:flex;align-items:center;gap:9px;padding:10px 12px;border-left:3px solid var(--violet);background:var(--panel2);margin-bottom:10px;min-height:42px}
+.dungeon-block .raid-head{border-left-color:var(--dungeon)}
+.raid-name{font-size:16.5px;font-weight:700;letter-spacing:.35px;text-transform:uppercase;white-space:nowrap}
+.raid-name b{color:var(--text)}
+.raid-line{height:1px;flex:1;background:var(--lineSoft)}
+.mode{font-size:12.5px;font-weight:700;border-radius:999px;padding:4px 9px;border:1px solid currentColor;white-space:nowrap}
+.mode.atk{color:#a67300;background:rgba(240,180,41,.09)}.mode.def{color:#4d91d8;background:rgba(71,145,220,.08)}
+.finished{display:inline-flex;align-items:center;gap:4px;color:var(--green);font-size:12.5px;font-weight:800;border:1px solid color-mix(in srgb,var(--green) 45%,transparent);padding:4px 9px;border-radius:20px;white-space:nowrap}
+.team-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.team-grid.five{grid-template-columns:repeat(5,minmax(0,1fr))}
+.team-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 14px;min-width:0;break-inside:avoid}
+.team-card.main,.team-card.sub,.team-card.siege{border-top:2px solid #ef5a6f}.team-card.star{border-top:2px solid #f0b429}.team-card.normal{border-top:2px solid var(--dungeon)}
+.team-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:8px}
+.team-name{font-size:17px;font-weight:700;flex:none}.team-count{display:inline-flex;align-items:center;justify-content:center;max-width:70%;margin-left:5px;padding:4px 10px;border:1px solid color-mix(in srgb,var(--teal) 62%,var(--line));border-radius:999px;background:color-mix(in srgb,var(--teal) 13%,var(--panel2));font-family:'Lexend','IBM Plex Sans',Arial,sans-serif;font-size:17px;font-weight:800;line-height:1.15;letter-spacing:.15px;color:var(--teal);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slot{display:flex;align-items:center;gap:8px;padding:7px;border-bottom:1px solid var(--lineSoft);min-height:44px}
+.slot:last-of-type{border-bottom:none}.slot.leader-slot{background:var(--leaderSlot);border-radius:6px;border-bottom-color:transparent}
+.crown{color:var(--amber);font-size:13px;width:14px;flex:none}.dot{width:9px;height:9px;border-radius:50%;flex:none;box-shadow:0 0 4px currentColor}
+.member{min-width:0;flex:1;display:flex;align-items:center;gap:7px}.member-name{font-size:15.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.job-class{font-size:14.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:45%;text-align:right}
+.public-pre-attendance{display:inline-flex;align-items:center;justify-content:center;min-height:24px;padding:4px 8px;border:1.5px solid #566079;border-radius:999px;background:#20263a;color:#c7cde0;font:800 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.35px;white-space:nowrap;flex:none}
+.public-pre-attendance.pre-going{background:#12301d;border-color:#3d9d5b;color:#8fe89f}.public-pre-attendance.pre-not-going{background:#35161d;border-color:#a94252;color:#ff9caa}.public-pre-attendance.pre-no-response{background:#20263a;border-color:#566079;color:#c7cde0}
+.empty{font-size:12.5px;color:var(--muted2);font-style:italic}.no-healer{font-size:12px;color:var(--red);font-weight:700;margin:5px 0 0}
+.loading,.error-box{max-width:720px;margin:90px auto;padding:24px;border:1px solid var(--lineSoft);background:var(--sheet);border-radius:12px;text-align:center;color:var(--muted);box-shadow:var(--shadow);font-size:15px}
+.spinner{width:28px;height:28px;border:3px solid var(--line);border-top-color:var(--violet);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}@keyframes spin{to{transform:rotate(360deg)}}
+.error-box b{display:block;color:var(--red);margin-bottom:7px;font-size:17px}.error-note{font-size:13px}
+.unpublished-box{min-height:420px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:50px 20px;color:var(--muted)}
+.unpublished-icon{font-size:38px;margin-bottom:12px;opacity:.8}.unpublished-box h2{margin:0 0 10px;color:var(--text);font-family:'Cinzel',serif;font-size:27px;letter-spacing:.5px}.unpublished-box p{margin:0;font-size:17px;line-height:1.7}
+@media(max-width:1200px){.team-grid.five{grid-template-columns:repeat(3,minmax(0,1fr))}.team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){.viewerbar{padding:8px 10px}.mini-brand{width:100%;justify-content:center}.nav{width:100%;justify-content:center}.content{width:calc(100% - 12px);margin-top:8px}.lineup-sheet{padding:14px 10px 20px}.sheet-head{align-items:flex-start;flex-direction:column}.sheet-brand{font-size:32px}.sheet-meta{text-align:left}.team-grid,.team-grid.five{grid-template-columns:1fr}.raid-head{flex-wrap:wrap}.raid-line{display:none}.job-class{max-width:48%}.public-pre-attendance{min-height:23px;padding:4px 7px;font-size:10px}}
+@media print{.viewerbar{display:none!important}body{background:#fff!important}.content{width:100%!important;margin:0!important}.lineup-sheet{box-shadow:none!important;border:none!important;border-radius:0!important;padding:0!important;background:#fff!important;color:#14172a!important}.team-card,.raid-head{break-inside:avoid;page-break-inside:avoid}.public-pre-attendance{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+</style>
+<meta name="titania-public-build" content="2026-09-04-v13-public-pre">
+</head>
+<body data-view="siege">
+<div class="page">
+  <header class="viewerbar">
+    <div class="mini-brand"><img class="logo" src="titania-logo.webp" alt="Titania guild logo"><div><b>TITANIA</b><span>Dark Lord Server</span></div></div>
+    <nav class="nav">
+      <a href="guild-league.html">🛡 Guild League</a>
+      <a class="active" href="siege.html">🏰 Siege</a>
+      <a href="polarity-zone.html">⚡ Polarity Zone</a>
+      <button class="tool-btn" id="refreshBtn">↻ Refresh</button>
+      <button class="tool-btn" id="themeBtn">☀ Light</button>
+    </nav>
+  </header>
+  <main class="content" id="content"><div class="loading"><div class="spinner"></div>Loading lineup…</div></main>
+</div>
+<script src="config.js?v=20260904-public-pre-v3"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
+'use strict';
+
+const VIEW = document.body.dataset.view || 'guild';
+const TEAM_SIZE = 5;
+
+const MAIN_RAIDS = [
+  {id:'siege_raid_1',label:'Raid 1',keys:['siege_main_1','siege_main_2','siege_main_3','siege_main_4']},
+  {id:'siege_raid_2',label:'Raid 2',keys:['siege_main_5','siege_main_6','siege_main_7','siege_main_8']},
+  {id:'siege_raid_3',label:'Raid 3',keys:['siege_main_9','siege_main_10','siege_main_11','siege_main_12']}
+];
+const SUB_RAIDS = [
+  {id:'siege_sub_raid_1',label:'Raid 4',keys:['siege_sub_1','siege_sub_2','siege_sub_3','siege_sub_4','siege_sub_17']},
+  {id:'siege_sub_raid_2',label:'Raid 5',keys:['siege_sub_5','siege_sub_6','siege_sub_7','siege_sub_8','siege_sub_18']},
+  {id:'siege_sub_raid_3',label:'Raid 6',keys:['siege_sub_9','siege_sub_10','siege_sub_11','siege_sub_12']},
+  {id:'siege_sub_raid_4',label:'Raid 7',keys:['siege_sub_13','siege_sub_14','siege_sub_15','siege_sub_16']}
+];
+const DEFAULT_SIEGE_RAIDS = [...MAIN_RAIDS,...SUB_RAIDS];
+const SIEGE_PARTY_ORDER = DEFAULT_SIEGE_RAIDS.flatMap(raid=>raid.keys);
+const SIEGE_KEY_SET = new Set(SIEGE_PARTY_ORDER);
+
+function normalizeSiegeRaidGroups(raw){
+  const source=raw&&typeof raw==='object'?raw:{};
+  const out={};const used=new Set();
+  DEFAULT_SIEGE_RAIDS.forEach(raid=>{
+    out[raid.id]=[];
+    const values=Array.isArray(source[raid.id])?source[raid.id]:[];
+    values.forEach(value=>{
+      const key=str(value).trim();
+      if(!SIEGE_KEY_SET.has(key)||used.has(key)||out[raid.id].length>=5)return;
+      used.add(key);out[raid.id].push(key);
+    });
+  });
+  SIEGE_PARTY_ORDER.forEach(key=>{
+    if(used.has(key))return;
+    const preferred=DEFAULT_SIEGE_RAIDS.find(raid=>raid.keys.includes(key));
+    let target=preferred&&out[preferred.id].length<5?preferred:null;
+    if(!target)target=DEFAULT_SIEGE_RAIDS.find(raid=>out[raid.id].length<5);
+    if(target){out[target.id].push(key);used.add(key);}
+  });
+  DEFAULT_SIEGE_RAIDS.forEach(emptyRaid=>{
+    if(out[emptyRaid.id].length)return;
+    const donor=DEFAULT_SIEGE_RAIDS.find(raid=>out[raid.id].length>1);
+    if(donor)out[emptyRaid.id].push(out[donor.id].pop());
+  });
+  return out;
+}
+
+function currentSiegeRaids(){
+  const groups=state&&state.siegeRaidGroups?state.siegeRaidGroups:normalizeSiegeRaidGroups({});
+  return DEFAULT_SIEGE_RAIDS.map(raid=>({...raid,keys:(groups[raid.id]||raid.keys).slice()}));
+}
+
+function siegeRaidForParty(key){return currentSiegeRaids().find(raid=>raid.keys.includes(key))||null;}
+const STAR_RAIDS = [
+  {id:'pz_star_1',label:'Raid Team',keys:['elite_1','elite_2','elite_3','elite_4','elite_5']},
+  {id:'pz_star_2',label:'Raid Team',keys:['elite_6','elite_7','elite_8','elite_9','elite_10']}
+];
+const DUNGEONS = Array.from({length:4},(_,i)=>({
+  id:`pz_dungeon_${i+1}`,
+  dungeon:i+1,
+  label:`Normal Dungeon ${i+1}`,
+  keys:Array.from({length:5},(_,j)=>`dungeon${i+1}_${j+1}`)
+}));
+const HEALERS = new Set(['Acolyte','Priest','High Priest']);
+const CLASS_COLORS = {
+  Swordman:'#e2776b',Knight:'#e2776b','Lord Knight':'#e2776b',Crusader:'#e2776b',Paladin:'#e2776b',
+  Mage:'#579ed3',Wizard:'#579ed3','High Wizard':'#579ed3',Archer:'#e2aa50',Hunter:'#e2aa50',Sniper:'#e2aa50',
+  Bard:'#e2aa50',Clown:'#e2aa50',Dancer:'#e2aa50',Gypsy:'#e2aa50',Acolyte:'#78bd5b',Priest:'#78bd5b','High Priest':'#78bd5b',Monk:'#78bd5b',Champion:'#78bd5b',
+  Thief:'#a579f2',Assassin:'#a579f2','Assassin Cross':'#a579f2',Merchant:'#df9056',Blacksmith:'#df9056',Whitesmith:'#df9056',Alchemist:'#df9056',Creator:'#df9056',
+  Gunslinger:'#b27d69',Rebel:'#b27d69','Night Watch':'#b27d69',Druid:'#32947e',Kanos:'#32947e',Alithea:'#32947e',Unknown:'#8b93b0'
+};
+
+let client = null;
+let state = null;
+let members = new Map();
+
+document.addEventListener('DOMContentLoaded',()=>{
+  setupTheme();
+  const refresh = document.getElementById('refreshBtn');
+  if(refresh) refresh.addEventListener('click',loadLineup);
+  loadLineup();
+  setInterval(loadLineup,60000);
+});
+
+function setupTheme(){
+  let theme='';
+  try{theme=localStorage.getItem('titania_public_theme')||'';}catch(_e){}
+  if(!theme) theme=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';
+  applyTheme(theme);
+  const btn=document.getElementById('themeBtn');
+  if(btn) btn.addEventListener('click',()=>applyTheme(document.documentElement.dataset.theme==='light'?'dark':'light'));
+}
+
+function applyTheme(theme){
+  document.documentElement.dataset.theme=theme;
+  const btn=document.getElementById('themeBtn');
+  if(btn) btn.innerHTML=theme==='light'?'<span class="theme-icon">☾</span> Dark':'<span class="theme-icon">☀</span> Light';
+  try{localStorage.setItem('titania_public_theme',theme);}catch(_e){}
+}
+
+async function loadLineup(){
+  const content=document.getElementById('content');
+  if(!content) return;
+  if(!state) content.innerHTML='<div class="loading"><div class="spinner"></div>Loading lineup…</div>';
+  try{
+    const cfg=window.TITANIA_CONFIG||{};
+    const url=cfg.supabaseUrl||cfg.SUPABASE_URL;
+    const key=cfg.supabasePublishableKey||cfg.SUPABASE_PUBLISHABLE_KEY;
+    if(!url||!key) throw new Error('Supabase configuration is missing.');
+    if(!window.supabase) throw new Error('Supabase library did not load.');
+    if(!client) client=window.supabase.createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});
+    const {data,error}=await client.rpc('get_public_lineup',{p_view:VIEW});
+    if(error) throw error;
+    state=normalize(data||{});
+    members=new Map(state.roster.map(m=>[m.name,m]));
+    render();
+  }catch(err){
+    content.innerHTML=`<div class="error-box"><b>Could not load lineup</b>${esc(err&&err.message?err.message:String(err))}<br><br><span class="error-note">Make sure <code>siege_public_setup.sql</code> has been run in Supabase.</span></div>`;
+  }
+}
+
+function normalize(raw){
+  const roster=Array.isArray(raw.roster)
+    ? raw.roster.map(m=>({name:str(m.name),cls:str(m.cls)||'Unknown'})).filter(m=>m.name)
+    : [];
+  const assignments=raw.assignments&&typeof raw.assignments==='object'?raw.assignments:{};
+  return {
+    published:raw.published===true,
+    roster,
+    assignments,
+    raidLeaders:raw.raidLeaders||{},
+    raidModes:raw.raidModes||{},
+    siegeRaidGroups:normalizeSiegeRaidGroups(raw.siegeRaidGroups),
+    finishedDungeons:Array.isArray(raw.finishedDungeons)?raw.finishedDungeons.map(Number):[],
+    preAttendance:raw.preAttendance&&typeof raw.preAttendance==='object'?raw.preAttendance:{},
+    attendanceEventType:str(raw.attendanceEventType),
+    attendanceEventDate:str(raw.attendanceEventDate),
+    revision:num(raw.revision),
+    updatedAt:str(raw.updatedAt)
+  };
+}
+
+function render(){
+  const content=document.getElementById('content');
+  if(!content) return;
+  const title=VIEW==='guild'?'Guild League':VIEW==='siege'?'Siege':'Polarity Zone';
+  document.title=`Titania · ${title}`;
+  const updated=state.updatedAt?formatDateTime(state.updatedAt):'Live';
+  if(!state.published){
+    content.innerHTML=`<section class="lineup-sheet">
+      <div class="sheet-head">
+        <div class="sheet-brand">${esc(title)}</div>
+        <div class="sheet-meta">Dark Lord Server</div>
+      </div>
+      <div class="unpublished-box"><div class="unpublished-icon">🔒</div><h2>Lineup Not Published Yet</h2><p>The Titania ${esc(title)} lineup is currently private.<br>Please check back later.</p></div>
+    </section>`;
+    return;
+  }
+  const eventDate=state.attendanceEventDate?`<br>PRE ${esc(formatSimpleDate(state.attendanceEventDate))}`:'';
+  content.innerHTML=`<section class="lineup-sheet">
+    <div class="sheet-head">
+      <div class="sheet-brand">${esc(title)}</div>
+      <div class="sheet-meta">Dark Lord Server<br>Updated ${esc(updated)}${eventDate}</div>
+    </div>
+    ${VIEW==='polarity'?renderPolarity():renderGuild()}
+  </section>`;
+}
+
+function renderGuild(){
+  return currentSiegeRaids().map(r=>raidBlock(r,'siege',r.keys.length===5)).join('');
+}
+
+function renderPolarity(){
+  let html=section('★ Star Dungeon','star');
+  html+=STAR_RAIDS.map(r=>raidBlock(r,'star',true)).join('');
+  DUNGEONS.forEach(d=>{
+    const leader=str(state.raidLeaders[d.id])||'Not assigned';
+    const finished=state.finishedDungeons.includes(d.dungeon);
+    html+=`<div class="raid-block dungeon-block">
+      <div class="raid-head">
+        <div class="raid-name">NORMAL DUNGEON ${d.dungeon} · TEAM <b>${esc(leader)}</b></div>
+        ${finished?'<span class="finished">✓ Run Finished</span>':''}
+        <div class="raid-line"></div>
+      </div>
+      <div class="team-grid">${d.keys.map((k,i)=>teamCard(k,'normal',`Party ${i+1}`)).join('')}</div>
+    </div>`;
+  });
+  return html;
+}
+
+function raidBlock(raid,kind,five){
+  const leader=str(state.raidLeaders[raid.id])||'Not assigned';
+  const isSiegeRaid=DEFAULT_SIEGE_RAIDS.some(r=>r.id===raid.id);
+  const mode=isSiegeRaid?(str(state.raidModes[raid.id]).toUpperCase()==='DEF'?'DEF':'ATK'):'';
+  const modeLabel=mode==='DEF'?'RESPAWN':'CAPTURE';
+  const modeIcon=mode==='DEF'?'↻':'🏰';
+  const raidTitle=kind==='star'?`RAID TEAM — <b>${esc(leader)}</b>`:`${esc(raid.label.toUpperCase())} · TEAM <b>${esc(leader)}</b>`;
+  return `<div class="raid-block">
+    <div class="raid-head">
+      <div class="raid-name">${raidTitle}</div>
+      ${mode?`<span class="mode ${mode.toLowerCase()}">${modeIcon} ${modeLabel}</span>`:''}
+      <div class="raid-line"></div>
+    </div>
+    <div class="team-grid ${five?'five':''}">${raid.keys.map(k=>teamCard(k,kind)).join('')}</div>
+  </div>`;
+}
+
+function teamCard(key,kind,label){
+  const s=slots(key);
+  const noHealer=teamNoHealer(key);
+  const raid=key.startsWith('siege_')?siegeRaidForParty(key):[...STAR_RAIDS,...DUNGEONS].find(item=>item.keys.includes(key));
+  const raidLeaderName=raid?(str(state.raidLeaders[raid.id])||'Not assigned'):'Not assigned';
+  return `<article class="team-card ${kind}">
+    <div class="team-head"><div class="team-name">${esc(label||teamLabel(key))}</div><div class="team-count" title="Team ${esc(raidLeaderName)}">TEAM ${esc(raidLeaderName)}</div></div>
+    ${s.map((name,i)=>slotHtml(name,i)).join('')}
+    ${noHealer?'<div class="no-healer">⚠ No healer</div>':''}
+  </article>`;
+}
+
+function preBadge(name){
+  const status=str((state.preAttendance||{})[name])||'no_response';
+  if(status==='going')return '<span class="public-pre-attendance pre-going" title="Pre-attendance: Going">PRE ✓</span>';
+  if(status==='not_going')return '<span class="public-pre-attendance pre-not-going" title="Pre-attendance: Not Going">PRE ✕</span>';
+  return '<span class="public-pre-attendance pre-no-response" title="Pre-attendance: No Response">PRE ?</span>';
+}
+
+function slotHtml(name,index){
+  if(!name){
+    return `<div class="slot ${index===0?'leader-slot':''}"><span class="crown">${index===0?'♛':''}</span><span class="empty">${index===0?'Empty team leader':'Empty slot'}</span></div>`;
+  }
+  const m=members.get(name)||{name,cls:'Unknown'};
+  const c=CLASS_COLORS[m.cls]||CLASS_COLORS.Unknown;
+  return `<div class="slot ${index===0?'leader-slot':''}">
+    <span class="${index===0?'crown':'dot'}" style="${index===0?'':'background:'+c+';color:'+c}">${index===0?'♛':''}</span>
+    <div class="member"><div class="member-name">${esc(name)}</div>${preBadge(name)}</div>
+    <span class="job-class" style="color:${c}">${esc(m.cls)}</span>
+  </div>`;
+}
+
+function section(title,kind){
+  return `<div class="section-head"><div class="section-title ${kind}">${title}</div><div class="section-line"></div></div>`;
+}
+
+function slots(key){
+  const a=Array.isArray(state.assignments[key])?state.assignments[key].slice(0,TEAM_SIZE):[];
+  while(a.length<TEAM_SIZE)a.push(null);
+  return a.map(v=>str(v)||null);
+}
+
+function teamNoHealer(key){
+  const names=slots(key).filter(Boolean);
+  return names.length>0&&!names.some(n=>HEALERS.has((members.get(n)||{}).cls));
+}
+
+function teamLabel(key){
+  if(key.startsWith('siege_')){
+    const index=SIEGE_PARTY_ORDER.indexOf(key);
+    if(index>=0)return `Party ${index+1}`;
+  }
+  const m=/_([0-9]+)$/.exec(key);
+  return `Party ${m?m[1]:'?'}`;
+}
+
+function formatDateTime(v){
+  const d=new Date(v);
+  return Number.isNaN(d.getTime())?'':d.toLocaleString(undefined,{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+function formatSimpleDate(v){
+  const p=str(v).split('-').map(Number);if(p.length!==3)return str(v);
+  const d=new Date(p[0],p[1]-1,p[2]);
+  return Number.isNaN(d.getTime())?str(v):d.toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+}
+function str(v){return v==null?'':String(v);}
+function num(v){const n=Number(v);return Number.isFinite(n)?n:0;}
+function esc(v){return str(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+
+</script>
+</body></html>
