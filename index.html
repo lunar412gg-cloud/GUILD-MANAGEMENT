@@ -4212,7 +4212,7 @@
     const CONFIG = Object.freeze({
       teamSize: 5,
       mainTeams: 16,
-      subTeams: 20,
+      subTeams: 30,
       eliteTeams: 10,
       dungeonCount: 4,
       maxMembers: 1000,
@@ -4261,7 +4261,10 @@
       Object.freeze({ id: 'sub_raid_1', label: 'Raid 1', keys: Object.freeze(['sub_1', 'sub_2', 'sub_3', 'sub_4', 'sub_5']), defaultLeaderTeam: 'sub_1' }),
       Object.freeze({ id: 'sub_raid_2', label: 'Raid 2', keys: Object.freeze(['sub_6', 'sub_7', 'sub_8', 'sub_9', 'sub_10']), defaultLeaderTeam: 'sub_6' }),
       Object.freeze({ id: 'sub_raid_3', label: 'Raid 3', keys: Object.freeze(['sub_11', 'sub_12', 'sub_13', 'sub_14', 'sub_15']), defaultLeaderTeam: 'sub_11' }),
-      Object.freeze({ id: 'sub_raid_4', label: 'Raid 4', keys: Object.freeze(['sub_16', 'sub_17', 'sub_18', 'sub_19', 'sub_20']), defaultLeaderTeam: 'sub_16' })
+      Object.freeze({ id: 'sub_raid_4', label: 'Raid 4', keys: Object.freeze(['sub_16', 'sub_17', 'sub_18', 'sub_19', 'sub_20']), defaultLeaderTeam: 'sub_16' }),
+      Object.freeze({ id: 'sub_raid_5', label: 'Raid 5', keys: Object.freeze(['sub_21', 'sub_22', 'sub_23', 'sub_24', 'sub_25']), defaultLeaderTeam: 'sub_21' }),
+      Object.freeze({ id: 'sub_raid_6', label: 'Raid 6', keys: Object.freeze(['sub_26', 'sub_27', 'sub_28', 'sub_29', 'sub_30']), defaultLeaderTeam: 'sub_26' })
+
     ]);
     const ALL_GUILD_RAIDS = Object.freeze([...MAIN_RAIDS, ...SUB_RAIDS]);
     const SIEGE_MAIN_KEYS = Object.freeze(Array.from({ length: CONFIG.mainTeams }, (_, i) => `siege_main_${i + 1}`));
