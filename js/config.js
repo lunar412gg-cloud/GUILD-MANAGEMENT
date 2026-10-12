@@ -19,7 +19,7 @@ window.TITANIA_FEATURES = Object.freeze({
 });
 
 /* One Font Awesome stylesheet and shared icons for every Titania page. */
-(function loadTitaniaUiIcons(){
+(function loadTitaniaUiIcons() {
   if (!document.querySelector('link[href*="font-awesome/"]')) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -45,7 +45,7 @@ const TITANIA_IS_MANAGEMENT_PAGE = /\/$|\/index\.html$/i.test(window.location.pa
 const TITANIA_IS_PUBLIC_EVENT_PAGE = /\/(guild-league|siege)\.html$/i.test(window.location.pathname);
 const TITANIA_IS_MEMBER_PAGE = /\/member\.html$/i.test(window.location.pathname);
 
-(function loadTitaniaMobileNav(){
+(function loadTitaniaMobileNav() {
   if (!TITANIA_IS_MANAGEMENT_PAGE) return;
   if (document.querySelector('link[data-titania-mobile-nav]')) return;
   const link = document.createElement('link');
@@ -55,7 +55,7 @@ const TITANIA_IS_MEMBER_PAGE = /\/member\.html$/i.test(window.location.pathname)
   document.head.appendChild(link);
 })();
 
-(function loadTitaniaDashboardFixes(){
+(function loadTitaniaDashboardFixes() {
   if (!TITANIA_IS_MANAGEMENT_PAGE) return;
   if (document.querySelector('link[data-titania-dashboard-fixes]')) return;
   const link = document.createElement('link');
@@ -71,12 +71,12 @@ const TITANIA_IS_MEMBER_PAGE = /\/member\.html$/i.test(window.location.pathname)
     script.setAttribute('data-titania-dashboard-attendance', '1');
     document.body.appendChild(script);
   };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadScript, {once:true});
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadScript, { once: true });
   else loadScript();
 })();
 
 /* Guild League / Siege pre-attendance badge UI. */
-(function loadTitaniaPreAttendance(){
+(function loadTitaniaPreAttendance() {
   if (!TITANIA_IS_MANAGEMENT_PAGE) return;
   if (!document.querySelector('link[data-titania-pre-attendance]')) {
     const link = document.createElement('link');
@@ -94,12 +94,12 @@ const TITANIA_IS_MEMBER_PAGE = /\/member\.html$/i.test(window.location.pathname)
     document.body.appendChild(script);
   };
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadScript, {once:true});
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadScript, { once: true });
   else loadScript();
 })();
 
 /* Attendance history / actual attendance tab. */
-(function loadTitaniaAttendancePage(){
+(function loadTitaniaAttendancePage() {
   if (!TITANIA_IS_MANAGEMENT_PAGE) return;
   if (!document.querySelector('link[data-titania-attendance-page]')) {
     const link = document.createElement('link');
@@ -117,12 +117,12 @@ const TITANIA_IS_MEMBER_PAGE = /\/member\.html$/i.test(window.location.pathname)
     document.body.appendChild(script);
   };
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadScript, {once:true});
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadScript, { once: true });
   else loadScript();
 })();
 
 /* Member profile links inside Manage Members + Dashboard rankings + Attendance. */
-(function loadTitaniaMemberLinks(){
+(function loadTitaniaMemberLinks() {
   if (!TITANIA_IS_MANAGEMENT_PAGE) return;
   const loadScript = () => {
     if (document.querySelector('script[data-titania-member-links]')) return;
@@ -131,26 +131,26 @@ const TITANIA_IS_MEMBER_PAGE = /\/member\.html$/i.test(window.location.pathname)
     script.setAttribute('data-titania-member-links', '1');
     document.body.appendChild(script);
   };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadScript, {once:true});
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadScript, { once: true });
   else loadScript();
 })();
 
 /* Job/class artwork on member profile pages. */
-(function loadTitaniaMemberJobIcons(){
+(function loadTitaniaMemberJobIcons() {
   if (!TITANIA_IS_MEMBER_PAGE) return;
   const loadScript = () => {
     if (document.querySelector('script[data-titania-member-job-icons]')) return;
     const script = document.createElement('script');
     script.src = './js/member-job-icons.js?v=20260905-1';
-    script.setAttribute('data-titania-member-job-icons','1');
+    script.setAttribute('data-titania-member-job-icons', '1');
     document.body.appendChild(script);
   };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadScript, {once:true});
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadScript, { once: true });
   else loadScript();
 })();
 
 /* Read-only attendance icons on published Guild League / Siege pages. */
-(function loadTitaniaPublicAttendance(){
+(function loadTitaniaPublicAttendance() {
   if (!TITANIA_IS_PUBLIC_EVENT_PAGE) return;
   if (!document.querySelector('link[data-titania-public-attendance]')) {
     const link = document.createElement('link');
@@ -168,7 +168,7 @@ const TITANIA_IS_MEMBER_PAGE = /\/member\.html$/i.test(window.location.pathname)
     document.body.appendChild(script);
   };
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadScript, {once:true});
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadScript, { once: true });
   else loadScript();
 })();
 
@@ -176,15 +176,15 @@ const TITANIA_IS_MEMBER_PAGE = /\/member\.html$/i.test(window.location.pathname)
 document.addEventListener('click', event => {
   const input = event.target.closest('input[type="date"],input[type="time"]');
   if (!input || typeof input.showPicker !== 'function') return;
-  try { input.showPicker(); } catch (_error) {}
+  try { input.showPicker(); } catch (_error) { }
 });
 
 /*
  * Reversible Polarity Zone hide switch.
  * This only hides UI/public access; saved Supabase Polarity data remains untouched.
  */
-(function applyTitaniaFeatureFlags(){
-  if (window.TITANIA_FEATURES && window.TITANIA_FEATURES.polarityZone === false) {
+(function applyTitaniaFeatureFlags() {
+  if (window.TITANIA_FEATURES && window.TITANIA_FEATURES.polarityZone === true) {
     if (!document.querySelector('link[data-titania-polarity-hidden]')) {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
