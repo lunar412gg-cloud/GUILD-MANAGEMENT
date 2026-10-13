@@ -1,8 +1,8 @@
--- Admin-only Titania account deletion.
+-- Admin-only TingADingADing account deletion.
 -- Removes the Supabase Auth user; profiles.id is ON DELETE CASCADE.
 -- Existing audit references use ON DELETE SET NULL, so historical records remain.
 
-create or replace function public.admin_delete_titania_user(p_user_id uuid)
+create or replace function public.admin_delete_TingADingADing_user(p_user_id uuid)
 returns void
 language plpgsql
 security definer
@@ -37,7 +37,7 @@ begin
 end;
 $$;
 
-revoke all on function public.admin_delete_titania_user(uuid) from public;
-revoke all on function public.admin_delete_titania_user(uuid) from anon;
-revoke all on function public.admin_delete_titania_user(uuid) from authenticated;
-grant execute on function public.admin_delete_titania_user(uuid) to authenticated;
+revoke all on function public.admin_delete_TingADingADing_user(uuid) from public;
+revoke all on function public.admin_delete_TingADingADing_user(uuid) from anon;
+revoke all on function public.admin_delete_TingADingADing_user(uuid) from authenticated;
+grant execute on function public.admin_delete_TingADingADing_user(uuid) to authenticated;

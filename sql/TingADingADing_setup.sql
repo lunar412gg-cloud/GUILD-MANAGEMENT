@@ -1,6 +1,6 @@
--- TITANIA GUILD MANAGEMENT - COMPLETE SUPABASE SETUP
--- Canonical one-file database setup for Titania Guild Management.
--- Synced to the live Titania Supabase schema on 2026-09-05.
+-- TingADingADing GUILD MANAGEMENT - COMPLETE SUPABASE SETUP
+-- Canonical one-file database setup for TingADingADing Guild Management.
+-- Synced to the live TingADingADing Supabase schema on 2026-09-05.
 -- Safe to rerun. Existing planner and attendance data are preserved.
 --
 -- Run this entire file once in Supabase Dashboard > SQL Editor.

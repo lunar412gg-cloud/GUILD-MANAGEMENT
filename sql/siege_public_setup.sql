@@ -1,4 +1,4 @@
--- Titania Guild Management - secure public lineup support for Guild League / Siege / Polarity.
+-- TingADingADing Guild Management - secure public lineup support for Guild League / Siege / Polarity.
 -- Run this in Supabase SQL Editor after attendance_setup.sql.
 -- Public pages receive only published lineup fields plus PRE-attendance status for members in that published lineup.
 

@@ -19,10 +19,10 @@ document.write('<script src="./js/party-pool.js?v=20260911-4"><\/script>');
 document.write('<script src="./js/siege-polarity-label.js?v=20260913-1"><\/script>');
 document.write('<script src="./js/dashboard-weekly-ranking.js?v=20260914-1"><\/script>');
 
-document.addEventListener('DOMContentLoaded',()=>{
-  if(document.querySelector('script[data-titania-party-stars]'))return;
-  const script=document.createElement('script');
-  script.src='./js/party-stars.js?v=20260906-4';
-  script.setAttribute('data-titania-party-stars','1');
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.querySelector('script[data-TingADingADing-party-stars]')) return;
+  const script = document.createElement('script');
+  script.src = './js/party-stars.js?v=20260906-4';
+  script.setAttribute('data-TingADingADing-party-stars', '1');
   document.body.appendChild(script);
-},{once:true});
+}, { once: true });
