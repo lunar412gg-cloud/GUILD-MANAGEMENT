@@ -34,7 +34,7 @@
       .party-pool-list::-webkit-scrollbar{width:8px}.party-pool-list::-webkit-scrollbar-thumb{background:#242c47;border-radius:8px}
       .party-pool-card{background:var(--panel);border:1px solid var(--line-soft);border-radius:10px;margin-bottom:8px;padding:10px;cursor:grab;transition:.12s ease}
       .party-pool-card:hover{border-color:var(--violet);transform:translateX(2px)}
-      .party-pool-card.incomplete{cursor:default;opacity:.62}.party-pool-card.incomplete:hover{transform:none;border-color:var(--line-soft)}
+      .party-pool-card.incomplete{cursor:grab;opacity:.75}.party-pool-card.incomplete:hover{border-color:var(--violet)}
       .party-pool-card.dragging{opacity:.35}
       .party-pool-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}
       .party-pool-head b{font-size:13px}.party-pool-count{font:600 11px 'IBM Plex Mono',monospace;color:var(--muted)}
@@ -106,10 +106,10 @@
         const src=iconFor(member);
         return `<div class="party-pool-member">${src?`<img class="party-pool-job-icon" src="${esc(src)}" alt="" title="${esc(member.cls||'')}">`:''}<span class="party-pool-member-name">${esc(member?member.name:'Member unavailable')}</span></div>`;
       }).join('');
-      return `<article class="party-pool-card${full?'':' incomplete'}" data-party-no="${party.party_no}" draggable="${full?'true':'false'}" title="${full?'Drag this party onto a Guild League or Siege party card':'Party must contain 5 active members before it can be dragged'}"><div class="party-pool-head"><b>Party ${party.party_no}</b><span class="party-pool-count">${members.length}/5</span></div><div class="party-pool-members">${rows}</div></article>`;
+      return `<article class="party-pool-card${full?'':' incomplete'}" data-party-no="${party.party_no}" draggable="true" title="${full?'Drag this party onto a Guild League or Siege party card':'Incomplete party — drag to assign anyway'}"><div class="party-pool-head"><b>Party ${party.party_no}</b><span class="party-pool-count">${members.length}/5</span></div><div class="party-pool-members">${rows}</div></article>`;
     }).join('');
 
-    list.querySelectorAll('.party-pool-card[draggable="true"]').forEach(card=>{
+    list.querySelectorAll('.party-pool-card').forEach(card=>{
       card.addEventListener('dragstart',event=>{
         const party=parties.find(item=>String(item.party_no)===card.dataset.partyNo);
         if(!party||!event.dataTransfer)return;
@@ -197,21 +197,25 @@
   }
 
   function fillTeamFromParty(team,payload){
-    if(!payload||!Array.isArray(payload.memberIds)||payload.memberIds.length!==5)return;
+    if(!payload||!Array.isArray(payload.memberIds)||!payload.memberIds.length)return;
     let members;
     try{members=payload.memberIds.map(id=>memberById[id]).filter(Boolean);}catch(_e){return;}
-    if(members.length!==5||members.some(member=>!activeMember(member))||new Set(members.map(member=>member.id)).size!==5){
-      try{showToast('Party unavailable','All 5 saved party members must still be active.','warn');}catch(_e){}
+    if(!members.length){
+      try{showToast('Party unavailable','No members in this party could be found.','warn');}catch(_e){}
       return;
     }
     try{
       if(!TEAM_KEY_SET.has(team))return;
       const names=members.map(member=>member.name);
       names.forEach(name=>removeMemberFromKeys(name,scopeKeys(team)));
-      state.assignments[team]=names.slice(0,5);
+      // Fill only the slots we have; leave the rest untouched.
+      const current=state.assignments[team]||[];
+      const filled=current.slice();
+      names.forEach((name,i)=>{filled[i]=name;});
+      state.assignments[team]=filled;
       if(typeof clearSelections==='function')clearSelections(false);
       commitMutation(`Party ${payload.partyNo} placed`);
-      showToast('Party placed',`Party ${payload.partyNo} -> ${displayTeamLabel(team)}`);
+      showToast('Party placed',`Party ${payload.partyNo} → ${displayTeamLabel(team)} (${names.length}/5 members)`);
     }catch(error){
       console.warn('Party drop failed',error);
       try{showToast('Party not placed','Could not place this party.','warn');}catch(_e){}
