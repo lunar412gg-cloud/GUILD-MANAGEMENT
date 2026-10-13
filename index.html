@@ -6516,7 +6516,7 @@ Their team assignments and membership history will also be removed. Use Mark Ina
         return siegeIndex >= 0 ? `Party ${siegeIndex + 1}` : teamLabel(key);
       }
       const index = SUB_RAIDS.flatMap(raid => raid.keys).indexOf(key);
-      return index >= 0 ? `Party ${index + 1}` : teamLabel(key);
+      return index >= 0 ? `Party ${index + 16}` : teamLabel(key);
     }
     function displayTeamLabel(key) {
       if (key.startsWith('sub_') || key.startsWith('siege_sub_')) return subDisplayTeamLabel(key);
