@@ -1,9 +1,9 @@
 /* Match existing UI sizing; keep labels and game artwork unchanged. */
-.TingADingADing-ui-icon{pointer-events:none;vertical-align:baseline;}
-.leader-icon.TingADingADing-ui-icon{font-size:26px;text-align:center;line-height:26px;}
-.p-leader-icon.TingADingADing-ui-icon{font-size:12px;line-height:12px;}
-.search-box > .TingADingADing-ui-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:14px;font-size:14px;color:var(--muted-2);}
-.hint-bar > .TingADingADing-ui-icon{width:15px;font-size:15px;color:var(--violet);flex:none;margin-top:2px;}
+.titania-ui-icon{pointer-events:none;vertical-align:baseline;}
+.leader-icon.titania-ui-icon{font-size:26px;text-align:center;line-height:26px;}
+.p-leader-icon.titania-ui-icon{font-size:12px;line-height:12px;}
+.search-box > .titania-ui-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:14px;font-size:14px;color:var(--muted-2);}
+.hint-bar > .titania-ui-icon{width:15px;font-size:15px;color:var(--violet);flex:none;margin-top:2px;}
 
 /* mr-2: right spacing for labelled button icons, including wrapped icons. */
 .mr-2{margin-right:.5rem;}

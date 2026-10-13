@@ -1,4 +1,4 @@
--- TingADingADing GUILD MANAGEMENT - SUPABASE SETUP
+-- TITANIA GUILD MANAGEMENT - SUPABASE SETUP
 -- Run this entire file once in Supabase Dashboard > SQL Editor.
 -- Then register your own account through the website and promote it to admin
 -- using the final UPDATE statement at the bottom.

@@ -1,6 +1,6 @@
-# TingADingADing Guild Management - GitHub Pages + Supabase
+# Titania Guild Management - GitHub Pages + Supabase
 
-TingADingADing Guild Management is a browser-based guild planning tool hosted on GitHub Pages, with Supabase providing authentication, roles, shared planner state, attendance tracking, public read-only lineups, and revision-safe saves.
+Titania Guild Management is a browser-based guild planning tool hosted on GitHub Pages, with Supabase providing authentication, roles, shared planner state, attendance tracking, public read-only lineups, and revision-safe saves.
 
 ## Repository layout
 
@@ -28,7 +28,7 @@ TingADingADing Guild Management is a browser-based guild planning tool hosted on
 │  ├─ public-attendance.css
 │  └─ public-lineup.css
 ├─ sql/
-│  ├─ TingADingADing_setup.sql
+│  ├─ titania_setup.sql
 │  ├─ supabase_setup.sql
 │  ├─ attendance_setup.sql
 │  ├─ public_view_setup.sql
@@ -53,15 +53,15 @@ These are intended for browser applications when RLS is enabled.
 
 1. Sign in to Supabase and create a new project.
 2. Open the project's SQL Editor.
-3. Run the entire `sql/TingADingADing_setup.sql` file once.
+3. Run the entire `sql/titania_setup.sql` file once.
 4. Open Project Settings / API and copy:
    - Project URL
    - Publishable key
 5. Put those two values into `js/config.js`.
 
-`sql/TingADingADing_setup.sql` is the canonical database setup. It contains the core profiles/planner schema, attendance tables, gear-rating history tracking, RLS policies, triggers, save RPCs, and the current `get_public_lineup(p_view text)` public-lineup RPC in one file.
+`sql/titania_setup.sql` is the canonical database setup. It contains the core profiles/planner schema, attendance tables, gear-rating history tracking, RLS policies, triggers, save RPCs, and the current `get_public_lineup(p_view text)` public-lineup RPC in one file.
 
-The older split SQL files under `sql/` are retained only as historical/compatibility references. For a fresh setup, use only `sql/TingADingADing_setup.sql`.
+The older split SQL files under `sql/` are retained only as historical/compatibility references. For a fresh setup, use only `sql/titania_setup.sql`.
 
 ## Step 2 - Configure Supabase Auth
 
@@ -69,7 +69,7 @@ In Supabase Authentication URL settings, set your final GitHub Pages address as 
 
 For a project repository, the address normally looks like:
 
-`https://YOUR-GITHUB-USERNAME.github.io/TingADingADing-guild-management/`
+`https://YOUR-GITHUB-USERNAME.github.io/titania-guild-management/`
 
 You can temporarily add both the GitHub Pages URL and any local testing URL you use.
 
@@ -85,7 +85,7 @@ Keep the HTML files at the repository root and deploy from:
 
 The HTML pages reference scripts and styles from `js/` and `css/`.
 
-## Step 4 - Create your own TingADingADing account
+## Step 4 - Create your own Titania account
 
 Open the website and choose Register.
 
@@ -147,6 +147,6 @@ Never commit:
 
 ## Credits
 
-TingADingADing GUILD MANAGEMENT TOOL is based on and adapted from [RO World Planner](https://github.com/cajancharles/roworldplanner), originally created by [CharlesPlaysGG](https://github.com/cajancharles).
+BlackCat GUILD MANAGEMENT TOOL is based on and adapted from [RO World Planner](https://github.com/cajancharles/roworldplanner), originally created by [CharlesPlaysGG](https://github.com/cajancharles).
 
 Please retain the original project's MIT license and copyright notice where required by its license terms.

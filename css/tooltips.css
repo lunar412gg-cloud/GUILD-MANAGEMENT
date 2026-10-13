@@ -1,4 +1,4 @@
-.TingADingADing-tooltip{
+.titania-tooltip{
   position:fixed;
   z-index:2147483647;
   display:block;
@@ -24,9 +24,9 @@
   transition:opacity .15s linear;
 }
 
-.TingADingADing-tooltip.show{opacity:.9}
+.titania-tooltip.show{opacity:.9}
 
-.TingADingADing-tooltip-inner{
+.titania-tooltip-inner{
   max-width:200px;
   padding:.25rem .5rem;
   color:#fff;
@@ -35,7 +35,7 @@
   border-radius:.25rem;
 }
 
-.TingADingADing-tooltip-arrow{
+.titania-tooltip-arrow{
   position:absolute;
   width:0;
   height:0;
@@ -43,7 +43,7 @@
   border-style:solid;
 }
 
-.TingADingADing-tooltip[data-placement="top"] .TingADingADing-tooltip-arrow{
+.titania-tooltip[data-placement="top"] .titania-tooltip-arrow{
   left:50%;
   bottom:-5px;
   margin-left:-5px;
@@ -51,7 +51,7 @@
   border-top-color:#000;
 }
 
-.TingADingADing-tooltip[data-placement="bottom"] .TingADingADing-tooltip-arrow{
+.titania-tooltip[data-placement="bottom"] .titania-tooltip-arrow{
   left:50%;
   top:-5px;
   margin-left:-5px;

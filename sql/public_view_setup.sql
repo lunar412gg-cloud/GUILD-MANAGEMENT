@@ -1,5 +1,5 @@
--- TingADingADing PUBLIC VIEW SETUP
--- Canonical public-lineup schema synced from the live TingADingADing Supabase project.
+-- TITANIA PUBLIC VIEW SETUP
+-- Canonical public-lineup schema synced from the live Titania Supabase project.
 -- Run this after supabase_setup.sql and attendance_setup.sql.
 -- It DOES NOT grant anonymous access to planner_state.
 -- Anonymous users can only execute get_public_lineup(p_view), which returns published lineup-safe fields.

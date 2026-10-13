@@ -1,4 +1,4 @@
-/* TingADingADing Attendance page */
+/* Titania Attendance page */
 .attendance-view #teamsWrap{width:100%;max-width:none;}
 .attendance-page{display:flex;flex-direction:column;gap:18px;width:100%;}
 .att-page-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:4px 2px 0;}

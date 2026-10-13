@@ -1,4 +1,4 @@
--- TingADingADing ATTENDANCE FOUNDATION
+-- TITANIA ATTENDANCE FOUNDATION
 -- Run this in Supabase Dashboard > SQL Editor AFTER supabase_setup.sql.
 -- Safe to rerun. Attendance is stored separately from planner_state.
 

@@ -1,4 +1,4 @@
-(function TingADingADingMemberJobIcons() {
+(function TitaniaMemberJobIcons(){
   'use strict';
 
   const MEMBER_PAGE_RE = /\/member\.html$/i;
@@ -8,25 +8,25 @@
   const MAP_URL = `${ICON_BASE}job-icons.json?v=20260905-1`;
   let iconMapPromise = null;
 
-  function loadIconMap() {
+  function loadIconMap(){
     if (!iconMapPromise) {
-      iconMapPromise = fetch(MAP_URL, { cache: 'force-cache' })
+      iconMapPromise = fetch(MAP_URL, {cache:'force-cache'})
         .then(response => {
           if (!response.ok) throw new Error(`Job icon map HTTP ${response.status}`);
           return response.json();
         })
         .catch(error => {
-          console.warn('[TingADingADing] Could not load job icon map:', error);
+          console.warn('[Titania] Could not load job icon map:', error);
           return {};
         });
     }
     return iconMapPromise;
   }
 
-  function ensureStyle() {
-    if (document.getElementById('TingADingADing-member-job-icon-style')) return;
+  function ensureStyle(){
+    if (document.getElementById('titania-member-job-icon-style')) return;
     const style = document.createElement('style');
-    style.id = 'TingADingADing-member-job-icon-style';
+    style.id = 'titania-member-job-icon-style';
     style.textContent = `
       .class-job-icon{
         width:56px;
@@ -43,7 +43,7 @@
     document.head.appendChild(style);
   }
 
-  async function applyJobIcon() {
+  async function applyJobIcon(){
     const classEl = document.getElementById('memberClass');
     const orb = document.getElementById('classOrb');
     const existing = document.getElementById('memberJobIcon');
@@ -59,7 +59,7 @@
 
     if (existing) {
       const expected = `${ICON_BASE}${filename}`;
-      if (!existing.src.endsWith(expected.replace('./', ''))) existing.src = expected;
+      if (!existing.src.endsWith(expected.replace('./',''))) existing.src = expected;
       existing.alt = `${className} job icon`;
       existing.title = className;
       return true;
@@ -78,18 +78,18 @@
       if (!img.isConnected) return;
       orb.style.display = '';
       img.replaceWith(orb);
-    }, { once: true });
+    }, {once:true});
 
     orb.replaceWith(img);
     return true;
   }
 
-  function start() {
+  function start(){
     applyJobIcon();
 
     const profile = document.getElementById('profile') || document.body;
     const observer = new MutationObserver(() => { applyJobIcon(); });
-    observer.observe(profile, { subtree: true, childList: true, characterData: true });
+    observer.observe(profile, {subtree:true, childList:true, characterData:true});
 
     let tries = 0;
     const timer = setInterval(() => {
@@ -101,7 +101,7 @@
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', start, { once: true });
+    document.addEventListener('DOMContentLoaded', start, {once:true});
   } else {
     start();
   }
