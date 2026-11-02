@@ -4221,11 +4221,11 @@
 
     const CLASSES = Object.freeze([
       'Swordman', 'Knight', 'Lord Knight', 'Crusader', 'Paladin',
-      'Mage', 'Wizard', 'High Wizard',
+      'Mage', 'Wizard', 'High Wizard', 'Sage',
       'Archer', 'Hunter', 'Sniper',
       'Bard', 'Clown', 'Dancer', 'Gypsy',
       'Acolyte', 'Priest', 'High Priest', 'Monk', 'Champion',
-      'Thief', 'Assassin', 'Assassin Cross',
+      'Thief', 'Assassin', 'Assassin Cross', 'Stalker',
       'Merchant', 'Blacksmith', 'Whitesmith', 'Alchemist', 'Creator',
       'Gunslinger', 'Rebel', 'Night Watch',
       'Druid', 'Kanos', 'Alithea', 'Unknown'
@@ -4239,11 +4239,11 @@
      */
     const CLASS_COLORS = Object.freeze({
       Swordman: '#e2776b', Knight: '#e2776b', 'Lord Knight': '#e2776b', Crusader: '#e2776b', Paladin: '#e2776b',
-      Mage: '#579ed3', Wizard: '#579ed3', 'High Wizard': '#579ed3',
+      Mage: '#579ed3', Wizard: '#579ed3', 'High Wizard': '#579ed3', 'Sage': '#579ed3',
       Archer: '#e2aa50', Hunter: '#e2aa50', Sniper: '#e2aa50',
       Bard: '#e2aa50', Clown: '#e2aa50', Dancer: '#e2aa50', Gypsy: '#e2aa50',
       Acolyte: '#78bd5b', Priest: '#78bd5b', 'High Priest': '#78bd5b', Monk: '#78bd5b', Champion: '#78bd5b',
-      Thief: '#a579f2', Assassin: '#a579f2', 'Assassin Cross': '#a579f2',
+      Thief: '#a579f2', Assassin: '#a579f2', 'Assassin Cross': '#a579f2', 'Stalker': '#a579f2',
       Merchant: '#df9056', Blacksmith: '#df9056', Whitesmith: '#df9056', Alchemist: '#df9056', Creator: '#df9056',
       Gunslinger: '#b27d69', Rebel: '#b27d69', 'Night Watch': '#b27d69',
       Druid: '#32947e', Kanos: '#32947e', Alithea: '#32947e', Unknown: '#8b93b0'
@@ -4754,7 +4754,7 @@
 
     function createMockState() {
       const rows = [
-        ['YRDRY', 'Hunter', 44800], ['Astra', 'High Priest', 42100], ['Kairo', 'Lord Knight', 43750], ['Nyx', 'Assassin Cross', 43100], ['Lumi', 'High Wizard', 42500],
+        ['YRDRY', 'Hunter', 44800], ['Astra', 'High Priest', 42100], ['Kairo', 'Lord Knight', 43750], ['Nyx', 'Assassin Cross', 43100], ['Lumi', 'High Wizard', 42500], ['Cipher', 'Stalker', 41500], ['Zephyr', 'Sage', 40500],
         ['Riven', 'Paladin', 41900], ['Miko', 'Sniper', 41200], ['Sage', 'Champion', 40750], ['Vela', 'Creator', 40200], ['Orion', 'Priest', 39700],
         ['Cinder', 'Rebel', 39100], ['Tala', 'Dancer', 38600], ['Rune', 'Wizard', 38100], ['Mira', 'Acolyte', 37600], ['Zeph', 'Whitesmith', 37100],
         ['Echo', 'Bard', 36800], ['Jett', 'Gunslinger', 36200], ['Iris', 'Druid', 35800], ['Nova', 'Knight', 35200], ['Vale', 'Hunter', 34600]
